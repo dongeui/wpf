@@ -10,23 +10,25 @@
         x:Class="DXApplication4.MainWindow"
         Title="MainWindow" Height="600" Width="900" SizeToContent="WidthAndHeight" WindowStartupLocation="Manual"
     >
-    <Viewbox Stretch="Uniform">
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="0.1*" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="auto"/>
-        </Grid.ColumnDefinitions>
-        
-        <dx:UniformStackPanel HorizontalAlignment="Left" Height="60" VerticalAlignment="Top" Width="900">
-            <dxe:ImageEdit  HorizontalAlignment="Left" Margin="10,10,10,10" VerticalAlignment="Top" Width="100" Height="40"/>
-            <dx:SimpleButton Content="DoorControl" HorizontalAlignment="Left" Margin="10,10,10,10" VerticalAlignment="Top" Width="100" Height="40" Click="DoorControl_Click"/>
-            <dx:SimpleButton Content="SearchControl" HorizontalAlignment="Left" Margin="10,10,10,10" VerticalAlignment="Top" Width="100" Height="40" Click="SearchControl_Click"/>
-        </dx:UniformStackPanel>
-        <Frame Name="View"  Source="Views/SearchView.xaml" Width="900" Height="540" Margin="0,65,0,25"/>
-        <!--<ContentControl Content="{Binding Path=CurrentViewModel}"/>-->
-    </Grid>
+    <Viewbox>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="0.1*" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"/>
+            </Grid.ColumnDefinitions>
+
+            <DockPanel HorizontalAlignment="Left" Height="60" VerticalAlignment="Top" Width="900">
+                <dxe:ImageEdit  HorizontalAlignment="Left" Margin="10,10,10,10" VerticalAlignment="Top" Width="100" Height="40"/>
+                <dx:SimpleButton Content="DoorControl" HorizontalAlignment="Left" Margin="10,10,10,10" VerticalAlignment="Top" Width="100" Height="40" Click="DoorControl_Click"/>
+                <dx:SimpleButton Content="SearchControl" HorizontalAlignment="Left" Margin="10,10,10,10" VerticalAlignment="Top" Width="100" Height="40" Click="SearchControl_Click"/>
+            </DockPanel>
+
+            <DockPanel>
+                <Frame Name="View" Source="Views/DoorControlView.xaml" ></Frame>
+            </DockPanel>
+        </Grid>
     </Viewbox>
 </dx:ThemedWindow>

@@ -20,11 +20,10 @@ namespace DXApplication4.Views
     /// </summary>
     public partial class SearchView : UserControl
     {
-        SearchViewModel SearchViewModel = new SearchViewModel();
         public SearchView()
         {
             InitializeComponent();
-            DataContext = SearchViewModel;
+            this.DataContext = new SearchViewModel();
         }
     }
 }

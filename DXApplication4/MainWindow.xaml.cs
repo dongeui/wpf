@@ -22,21 +22,27 @@ namespace DXApplication4
     /// </summary>
     public partial class MainWindow : ThemedWindow
     {
-        //DoorControlViewModel DoorContorlView = new DoorControlViewModel();
+
         public MainWindow()
         {
             InitializeComponent();
-            //DataContext = DoorContorlView;
         }
 
         private void DoorControl_Click(object sender, RoutedEventArgs e)
         {
-            View.Source = new Uri("Views/DoorControlView.xaml",UriKind.Relative);
+            //SearchView.IsEnabled = false;
+            //DoorView.IsEnabled = true;
+           View.Source = new Uri("Views/DoorControlView.xaml",UriKind.Relative);
+            //DoorView.IsVisible();
         }
 
         private void SearchControl_Click(object sender, RoutedEventArgs e)
         {
+            //DoorView.IsEnabled = false;
+            //SearchView.IsEnabled =true;
+            //SearchView.IsVisible();
             View.Source = new Uri("Views/SearchView.xaml", UriKind.Relative);
+
         }
     }
 }

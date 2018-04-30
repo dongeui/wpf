@@ -4,53 +4,44 @@ using DevExpress.Mvvm;
 using System.Collections.ObjectModel;
 using DXApplication4.Models;
 using System.Windows.Input;
-using DXApplication4.Commands;
 
 namespace DXApplication4.ViewModels
 {
     [POCOViewModel]
     public class SearchViewModel
     {
-       
+        public DelegateCommand SearchCommand { get; set; }
+        public DelegateCommand ReportCommand { get; set; }
         public SearchViewModel()
         {
+            SearchCommand = new DelegateCommand(SearchCommandAction);
+            ReportCommand = new DelegateCommand(ReportCommandAction);
             //저장된 논리그룹 불러오는거 1, 해당 리스트 불러오는거 1, 리포트 커맨드 1
         }
 
-        /// <summary>
-        /// 조회 커맨드
-        /// </summary>
-        private ICommand setListUpdater;
-        public ICommand SearchCommand
+        public void ReportCommandAction()
         {
-            get
+            try
             {
-                if (this == null)
-                    setListUpdater = new SearchCommand();
-                return setListUpdater;
             }
-            set
+            catch
             {
-                setListUpdater = value;
+
             }
         }
-        /// <summary>
-        /// 리포트 커맨드
-        /// </summary>
-        private ICommand reportCommand;
-        public ICommand ReportCommand
+
+        public void SearchCommandAction()
         {
-            get
+            try
             {
-                if (this == null)
-                    reportCommand = new ReportCommand();
-                return reportCommand;
             }
-            set
+            catch
             {
-                reportCommand = value;
+
             }
         }
+
+
 
         /* 시작 날짜 파라미터 바인딩 */
         DateTime _StartDate = DateTime.Now.Date.AddDays(-1);

@@ -72,15 +72,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ADTSC20DataSet1.xsd</DependentUpon>
     </Compile>
-    <Compile Include="Commands\AddLogicalGroupCommand.cs" />
-    <Compile Include="Commands\DeleteLogicalGroupCommand.cs" />
-    <Compile Include="Commands\DeleteSetLogicalGroupCommand.cs" />
-    <Compile Include="Commands\DeleteSetSelectedDoorCommand.cs" />
-    <Compile Include="Commands\ReportCommand.cs" />
-    <Compile Include="Commands\SearchCommand.cs" />
-    <Compile Include="Commands\SetLogicalGroupCommand.cs" />
-    <Compile Include="Commands\SetSelectedDoorCommand.cs" />
-    <Compile Include="Models\SelectedDoorModel.cs" />
+    <Compile Include="Models\Door.cs" />
+    <Compile Include="Models\Group.cs" />
+    <Compile Include="Models\InGroup.cs" />
     <Compile Include="ViewModels\DoorControlViewModel.cs" />
     <Compile Include="ViewModels\SearchViewModel.cs" />
     <Compile Include="Views\DoorControlView.xaml.cs">

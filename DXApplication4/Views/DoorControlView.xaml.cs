@@ -20,11 +20,10 @@ namespace DXApplication4.Views
     /// </summary>
     public partial class DoorControlView : UserControl
     {
-        DoorControlViewModel DoorContorlView = new DoorControlViewModel();
         public DoorControlView()
         {
             InitializeComponent();
-            DataContext = DoorContorlView;
+            this.DataContext = new DoorControlViewModel();
         }
 
     }

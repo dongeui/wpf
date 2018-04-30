@@ -7,10 +7,16 @@ using System.Threading.Tasks;
 
 namespace DXApplication4.Models
 {
-    public class SelectedDoorModel
+    public class InGroup
     {
-        private string doorName;
-        private string doorPosition;
+        private string groupName;
+        private string groupPostion;
+
+        public InGroup(string groupName, string groupPostion)
+        {
+            this.groupName = groupName;
+            this.groupPostion = groupPostion;
+        }
 
         public event PropertyChangedEventHandler PropertyChanged;
         public void OnPropertyChanged(string propertyName)
@@ -21,29 +27,28 @@ namespace DXApplication4.Models
             }
         }
 
-        public string DoorName
+        public string GroupName
         {
             get
             {
-                return doorName;
+                return groupName;
             }
             set
             {
-                doorName = value;
-                OnPropertyChanged("doorName");
+                groupName = value;
+                OnPropertyChanged("groupName");
             }
         }
-
-        public string DoorPosition
+        public string GroupPosition
         {
             get
             {
-                return doorPosition;
+                return groupPostion;
             }
             set
             {
-                doorPosition = value;
-                OnPropertyChanged("doorPosition");
+                groupPostion = value;
+                OnPropertyChanged("groupPostion");
             }
         }
     }
