@@ -45,9 +45,20 @@
     <Reference Include="DevExpress.Xpf.Grid.v15.2.Core, Version=15.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.Xpf.Themes.Office2016White.v15.2" />
     <Reference Include="DevExpress.Xpo.v15.2, Version=15.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
@@ -68,14 +79,27 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="ADTSC20DataSet1.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ADTSC20DataSet1.xsd</DependentUpon>
+    <Compile Include="CM_UserConfig.cs">
+      <DependentUpon>UserConfig.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Door.cs" />
     <Compile Include="Models\Group.cs" />
     <Compile Include="Models\ListInGroup.cs" />
+    <Compile Include="UserConfig.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>UserConfig.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="UserConfig.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>UserConfig.tt</DependentUpon>
+    </Compile>
+    <Compile Include="UserConfig.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>UserConfig.edmx</DependentUpon>
+    </Compile>
     <Compile Include="ViewModels\DoorControlViewModel.cs" />
     <Compile Include="ViewModels\SearchViewModel.cs" />
     <Compile Include="Views\DoorControlView.xaml.cs">
@@ -124,28 +148,40 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <None Include="ADTSC20DataSet1.xsc">
-      <DependentUpon>ADTSC20DataSet1.xsd</DependentUpon>
-    </None>
-    <None Include="ADTSC20DataSet1.xsd">
-      <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>ADTSC20DataSet1.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="ADTSC20DataSet1.xss">
-      <DependentUpon>ADTSC20DataSet1.xsd</DependentUpon>
-    </None>
     <None Include="App.config">
       <SubType>Designer</SubType>
     </None>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
+    <EntityDeploy Include="UserConfig.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>UserConfig.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="UserConfig.edmx.diagram">
+      <DependentUpon>UserConfig.edmx</DependentUpon>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="UserConfig.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>UserConfig.edmx</DependentUpon>
+      <LastGenOutput>UserConfig.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="UserConfig.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>UserConfig.edmx</DependentUpon>
+      <LastGenOutput>UserConfig.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.

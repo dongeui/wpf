@@ -14,7 +14,6 @@ namespace DXApplication4.ViewModels
             SearchCommand = new DelegateCommand(SearchCommandAction);
             ReportCommand = new DelegateCommand(ReportCommandAction);
             DoorControlViewModel doorViewModel = new DoorControlViewModel();
-            //저장된 논리그룹 불러오는거 1, 해당 리스트 불러오는거 1, 리포트 커맨드 1
         }
 
         public void ReportCommandAction()

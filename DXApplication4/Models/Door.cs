@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DXApplication4.Models
 {
-    public class Door
+    public class Door 
     {
         private string doorName;
         private string doorPosition;

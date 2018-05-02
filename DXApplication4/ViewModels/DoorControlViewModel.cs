@@ -35,8 +35,8 @@ namespace DXApplication4.ViewModels
             set { _ListSelected = value; }
         }
         /*추가할 출입문들*/
-        Door _DoorSelected;
-        public Door DoorSelected
+        ObservableCollection<Door> _DoorSelected;
+        public ObservableCollection<Door> DoorSelected
         {
             get { return _DoorSelected; }
             set { _DoorSelected = value; }

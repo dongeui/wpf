@@ -7,7 +7,6 @@
              xmlns:ViewModels="clr-namespace:DXApplication4.ViewModels"
              xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
              xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid" 
-             xmlns:ADTSC20DataSet1TableAdapters="clr-namespace:DXApplication4.ADTSC20DataSet1TableAdapters" 
              xmlns:DXApplication4="clr-namespace:DXApplication4" 
              x:Class="DXApplication4.Views.DoorControlView"
              xmlns:local ="clr-namespace:DXApplication4.ViewModels"
@@ -17,65 +16,70 @@
 
 
     <UserControl.Resources>
+        <dx:EntitySimpleDataSource x:Key="EntitySimpleDataSource" ContextType="{x:Type DXApplication4:ADTSC20Entities}" Path="CM_UserConfig">
+            <dx:DesignDataManager.DesignData>
+                <dx:DesignDataSettings RowCount="5"/>
+            </dx:DesignDataManager.DesignData>
+        </dx:EntitySimpleDataSource>
     </UserControl.Resources>
 
     <Viewbox Stretch="Uniform">
-    <Grid>
-        <dx:DXTabControl Height="auto" Margin="0,0,0,0" Width="auto">
-            <dx:DXTabItem Header="출입문 관리">
-                <Grid Background="Transparent">
+        <Grid>
+            <dx:DXTabControl Height="auto" Margin="0,0,0,0" Width="auto">
+                <dx:DXTabItem Header="출입문 관리">
+                    <Grid Background="Transparent">
 
-                    <dxg:GridControl ItemsSource="{Binding SelectedDoorCollection}" ColumnsSource="{Binding SelectedDoorCollection}" SelectedItem="{Binding DeleteDoorSelected}"  Name="SelectedDoor" HorizontalAlignment="Left" Height="702" Margin="30,30,0,0" VerticalAlignment="Top" MinWidth="200" MinHeight="400" Width="354">
-                        <dxg:GridControl.View>
-                            <dxg:TreeListView ShowCheckboxes="True"  Name="DoorList" Margin="0,0,-2,0"/>
-                        </dxg:GridControl.View>
-                    </dxg:GridControl>
-                    
-                    <dx:SimpleButton Content="추가" Height="30" Width="80" Margin="406,341,1079,388" Command="{Binding AddDoorCommand}"/>
-                    <dx:SimpleButton Content="삭제" Height="30" Width="80" Margin="406,400,1079,332" Command="{Binding DeleteDoorCommand}"/>
+                        <dxg:GridControl ItemsSource="{Binding SelectedDoorCollection}" ColumnsSource="{Binding SelectedDoorCollection}" SelectedItem="{Binding DeleteDoorSelected}"  Name="SelectedDoor" HorizontalAlignment="Left" Height="702" Margin="30,30,0,0" VerticalAlignment="Top" MinWidth="200" MinHeight="400" Width="354">
+                            <dxg:GridControl.View>
+                                <dxg:TreeListView ShowCheckboxes="True"  Name="DoorList" Margin="0,0,-2,0"/>
+                            </dxg:GridControl.View>
+                        </dxg:GridControl>
 
-                    <dxg:GridControl SelectedItem="{Binding DoorSelected}" AutoGenerateColumns="AddNew" EnableSmartColumnsGeneration="True" HorizontalAlignment="Left" Margin="515,30,0,0" VerticalAlignment="Top" MinWidth="390" MinHeight="400" MaxWidth="400" Height="702" Width="1032">
-                        <dxg:GridControl.View>
-                            <dxg:TreeListView ShowCheckboxes="True" Margin="0,0,-634,0"/>
-                        </dxg:GridControl.View>
-                    </dxg:GridControl>
-                    
-                </Grid>
-            </dx:DXTabItem>
+                        <dx:SimpleButton Content="추가" Height="30" Width="80" Margin="406,341,1079,388" Command="{Binding AddDoorCommand}"/>
+                        <dx:SimpleButton Content="삭제" Height="30" Width="80" Margin="406,400,1079,332" Command="{Binding DeleteDoorCommand}"/>
 
-            
-            
-            
-            <dx:DXTabItem Header="조직 관리">
-                <Grid Background="Transparent">
-                    <dx:SimpleButton Content="등록"  Height="20" Width="70"  Margin="30,67,1474,683" Command="{Binding AddGroupCommand}" CommandParameter="{Binding Text, ElementName=inputGroupName}" />
-                    <dx:SimpleButton Content="제거"  Height="20" Width="70"  Margin="264,67,1240,683" Command="{Binding DeleteGroupCommand}"/>
-                    <dx:SimpleButton Content="추가"  Height="20" Width="70"  Margin="654,308,850,442" Command="{Binding AddGroupListCommand}" />
-                    <dx:SimpleButton Content="삭제"  Height="20" Width="70"  Margin="654,362,850,388" Command="{Binding DeleteGroupListCommand}"/>
-                    <TextBox Name="inputGroupName" HorizontalAlignment="Left" Height="23" Margin="30,30,0,0" TextWrapping="Wrap" Text="등록할 그룹명" VerticalAlignment="Top" Width="170"/>
+                        <dxg:GridControl SelectedItems="{Binding DoorSelected}" AutoGenerateColumns="AddNew" EnableSmartColumnsGeneration="True" HorizontalAlignment="Left" Margin="515,30,0,0" VerticalAlignment="Top" MinWidth="390" MinHeight="400" MaxWidth="400" Height="702" Width="1032" ItemsSource="{Binding Data, Source={StaticResource EntitySimpleDataSource}}">
+                            <dxg:GridControl.View>
+                                <dxg:TreeListView ShowCheckboxes="True" Margin="0,0,-634,0"/>
+                            </dxg:GridControl.View>
+                        </dxg:GridControl>
 
-                    <dxg:GridControl SelectedItem="{Binding GroupSelected}" AutoGenerateColumns="AddNew" EnableSmartColumnsGeneration="True" HorizontalAlignment="Left" Margin="30,100,0,0" VerticalAlignment="Top" SelectionMode="Row" ItemsSource="{Binding SelectedGroupCollection}" ColumnsSource="{Binding SelectedGroupCollection}">
-                        <dxg:GridControl.View >
+                    </Grid>
+                </dx:DXTabItem>
+
+
+
+
+                <dx:DXTabItem Header="조직 관리">
+                    <Grid Background="Transparent">
+                        <dx:SimpleButton Content="등록"  Height="20" Width="70"  Margin="30,67,1474,683" Command="{Binding AddGroupCommand}" CommandParameter="{Binding Text, ElementName=inputGroupName}" />
+                        <dx:SimpleButton Content="제거"  Height="20" Width="70"  Margin="264,67,1240,683" Command="{Binding DeleteGroupCommand}"/>
+                        <dx:SimpleButton Content="추가"  Height="20" Width="70"  Margin="654,308,850,442" Command="{Binding AddGroupListCommand}" />
+                        <dx:SimpleButton Content="삭제"  Height="20" Width="70"  Margin="654,362,850,388" Command="{Binding DeleteGroupListCommand}"/>
+                        <TextBox Name="inputGroupName" HorizontalAlignment="Left" Height="23" Margin="30,30,0,0" TextWrapping="Wrap" Text="등록할 그룹명" VerticalAlignment="Top" Width="170"/>
+
+                        <dxg:GridControl SelectedItem="{Binding GroupSelected}" AutoGenerateColumns="AddNew" EnableSmartColumnsGeneration="True" HorizontalAlignment="Left" Margin="30,100,0,0" VerticalAlignment="Top" SelectionMode="Row" ItemsSource="{Binding SelectedGroupCollection}" ColumnsSource="{Binding SelectedGroupCollection}">
+                            <dxg:GridControl.View >
                                 <dxg:TableView ShowCheckBoxSelectorColumn="True" Name="Group" AllowEditing="False" ShowTotalSummary="True" AutoWidth="False" Width="302" Height="605" VerticalAlignment="Bottom"/>
-                        </dxg:GridControl.View>
-                    </dxg:GridControl>
+                            </dxg:GridControl.View>
+                        </dxg:GridControl>
 
                         <dxg:GridControl  SelectedItem="{Binding GroupSelectedInList}" AutoGenerateColumns="AddNew" EnableSmartColumnsGeneration="True" HorizontalAlignment="Left" Margin="350,30,0,00" MinHeight="700" VerticalAlignment="Top"  SelectionMode="MultipleRow">
                             <dxg:GridControl.View >
-                            <dxg:TableView ShowCheckBoxSelectorColumn="True" AllowEditing="False" ShowTotalSummary="True" AutoWidth="False" Width="268" Height="698" VerticalAlignment="Bottom"/>
-                        </dxg:GridControl.View>
-                    </dxg:GridControl>
-                    
-                    <dxg:GridControl  SelectedItem="{Binding ListSelected}" AutoGenerateColumns="AddNew" EnableSmartColumnsGeneration="True" HorizontalAlignment="Left" Margin="758,30,0,0" VerticalAlignment="Top"  SelectionMode="MultipleRow"  Height="700" Width="762">
-                        <dxg:GridControl.View>
-                           <dxg:TreeListView ShowCheckboxes="True" Name="GroupList"/>
-                        </dxg:GridControl.View>
-                    </dxg:GridControl>
+                                <dxg:TableView ShowCheckBoxSelectorColumn="True" AllowEditing="False" ShowTotalSummary="True" AutoWidth="False" Width="268" Height="698" VerticalAlignment="Bottom"/>
+                            </dxg:GridControl.View>
+                        </dxg:GridControl>
 
-                </Grid>
-            </dx:DXTabItem>
-        </dx:DXTabControl>
+                        <dxg:GridControl  SelectedItem="{Binding ListSelected}" AutoGenerateColumns="AddNew" EnableSmartColumnsGeneration="True" HorizontalAlignment="Left" Margin="758,30,0,0" VerticalAlignment="Top"  SelectionMode="MultipleRow"  Height="700" Width="762">
+                            <dxg:GridControl.View>
+                                <dxg:TreeListView ShowCheckboxes="True" Name="GroupList"/>
+                            </dxg:GridControl.View>
+                        </dxg:GridControl>
 
-    </Grid>
+                    </Grid>
+                </dx:DXTabItem>
+            </dx:DXTabControl>
+
+        </Grid>
     </Viewbox>
 </UserControl>
