@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 
 namespace DXApplication4.Models
 {
-    public class InGroup
+    public class ListInGroup
     {
         private string groupName;
         private string groupPostion;
 
-        public InGroup(string groupName, string groupPostion)
+        public ListInGroup(string groupName, string groupPostion)
         {
             this.groupName = groupName;
             this.groupPostion = groupPostion;

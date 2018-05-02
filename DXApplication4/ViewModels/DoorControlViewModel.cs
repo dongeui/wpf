@@ -6,18 +6,61 @@ using System.Windows;
 using DXApplication4.Models;
 using System.Collections.ObjectModel;
 using DevExpress.Xpf.Core;
+using System.Collections.Generic;
 
 namespace DXApplication4.ViewModels
 {
     [POCOViewModel]
     public class DoorControlViewModel : ViewModelBase
     {
+        /*선택된 그룹들*/
+        Group _GroupSelected;
+        public Group GroupSelected
+        {
+            get { return _GroupSelected; }
+            set { _GroupSelected = value; }
+        }
+        /*그룹별 선택된 조직*/
+        Group _GroupSelectedInList;
+        public Group GroupSelectedInList
+        {
+            get { return _GroupSelectedInList; }
+            set { _GroupSelectedInList = value; }
+        }
+        /*조직 리스트에서 선택된 조직들*/
+        Group _ListSelected;
+        public Group ListSelected
+        {
+            get { return _ListSelected; }
+            set { _ListSelected = value; }
+        }
+        /*추가할 출입문들*/
+        Door _DoorSelected;
+        public Door DoorSelected
+        {
+            get { return _DoorSelected; }
+            set { _DoorSelected = value; }
+        }
+        /*삭제할 출입문들*/
+        Door _DeleteDoorSelected;
+        public Door DeleteDoorSelected
+        {
+            get { return _DeleteDoorSelected; }
+            set { _DeleteDoorSelected = value; }
+        }
+
+        /// <summary>
+        /// key:논리그룹 value:속한 조직 목록
+        /// </summary>
+        Dictionary<Group, ObservableCollection<ListInGroup>> _dic = new Dictionary<Group, ObservableCollection<ListInGroup>>();
+
+
         public DelegateCommand AddDoorCommand { get; set; }
         public DelegateCommand DeleteDoorCommand{ get; set; }
         public DelegateCommand<string> AddGroupCommand { get; set; }
         public DelegateCommand DeleteGroupCommand { get; set; }
-        public DelegateCommand AddGroupDoorCommand { get; set; }
-        public DelegateCommand DeleteGroupDoorCommand { get; set; }
+        public DelegateCommand AddGroupListCommand { get; set; }
+        public DelegateCommand DeleteGroupListCommand { get; set; }
 
         public DoorControlViewModel()
         {
@@ -25,16 +68,13 @@ namespace DXApplication4.ViewModels
             DeleteDoorCommand = new DelegateCommand(DeleteDoorCommandAction);
             AddGroupCommand = new DelegateCommand<string>(AddGroupCommandAction);
             DeleteGroupCommand = new DelegateCommand(DeleteGroupCommandAction);
-            AddGroupDoorCommand = new DelegateCommand(AddGroupDoorCommandAction);
-            DeleteGroupDoorCommand = new DelegateCommand(DeleteGroupDoorCommandAction);
-            //출입문관리
-            //출입문리스트 불러오는거 1, 저장된 출입문 불러오는거 1
-
-            //조직관리
-            //조직리스트 불러오는거 1, 저장된 논리조직 불러오는거 1, 논리조직에 해당된 조직맴버 불러오는거1
+            AddGroupListCommand = new DelegateCommand(AddGroupListCommandAction);
+            DeleteGroupListCommand = new DelegateCommand(DeleteGroupListCommandAction);
         }
+
         public void AddDoorCommandAction()
         {
+            //출입문 등록 DoorSelected가져와서 SelectedDoorCollection 넣기
             try
             {
             }
@@ -43,8 +83,10 @@ namespace DXApplication4.ViewModels
 
             }
         }
+
         public void DeleteDoorCommandAction()
         {
+            //출입문 삭제DeleteDoorSelected가져와서 SelectedDoorCollection에서빼기
             try
             {
 
@@ -54,6 +96,7 @@ namespace DXApplication4.ViewModels
 
             }
         }
+
         public bool Checker(string param)
         {
             bool result = false; ;
@@ -66,7 +109,6 @@ namespace DXApplication4.ViewModels
             }
             return result;
         }
-
         public void AddGroupCommandAction(string param)
         {
             var inputGroup = new Group(param);
@@ -78,6 +120,8 @@ namespace DXApplication4.ViewModels
                 if (!result)
                 {
                     SelectedGroupCollection.Add(inputGroup);
+                    //value없이 dic에추가
+                    _dic.Add(inputGroup, null);
                     DXMessageBox.Show(param+" 그룹이 추가 되었습니다.");
                 }
             }
@@ -88,6 +132,7 @@ namespace DXApplication4.ViewModels
         }
         public void DeleteGroupCommandAction()
         {
+            ///dic에서도 제거
             var selectedGroup = GroupSelected;
             try
             {
@@ -97,16 +142,20 @@ namespace DXApplication4.ViewModels
                 if (result)
                 {
                     SelectedGroupCollection.Remove(selectedGroup);
+                    //dic에서 제거
+                    _dic.Remove(selectedGroup);
                     DXMessageBox.Show(selectedGroup.GroupName + " 그룹이 삭제 되었습니다.");
                 }
             }
             catch
             {
-
+                DXMessageBox.Show("그룹 삭제 실패");
             }
         }
-        public void AddGroupDoorCommandAction()
+        public void AddGroupListCommandAction()
         {
+            //ListSelected 가져와서 선택된 해당 그룹에다가 속해서 집어넣기
+            //selectedGroupcollection에서 오류체크하고 가져와서 여기에 key는 그룹, value는 SelectedGroupInListCollection로 매핑
             try
             {
 
@@ -116,8 +165,10 @@ namespace DXApplication4.ViewModels
 
             }
         }
-        public void DeleteGroupDoorCommandAction()
+        public void DeleteGroupListCommandAction()
         {
+            //GroupSelectedInList 사용
+            //반대로 해당 dic에서 제거
             try
             {
 
@@ -128,7 +179,7 @@ namespace DXApplication4.ViewModels
             }
         }
 
-        /* 출입문 저장 목록 */
+        /* 저장된 출입문 목록 */
         private ObservableCollection<Door> _SelectedDoorCollection = new ObservableCollection<Door>();
         public ObservableCollection<Door> SelectedDoorCollection
         {
@@ -139,7 +190,7 @@ namespace DXApplication4.ViewModels
                 //RaisePropertyChanged("VisitorCollection");
             }
         }
-        /* 조직 저장 목록 */
+        /* 저장된 논리그룹 목록 */
         private ObservableCollection<Group> _SelectedGroupCollection = new ObservableCollection<Group>();
         public ObservableCollection<Group> SelectedGroupCollection
         {
@@ -150,31 +201,9 @@ namespace DXApplication4.ViewModels
                 //RaisePropertyChanged("VisitorCollection");
             }
         }
-        //private ObservableCollection<Group> _GroupSelected = new ObservableCollection<Group>();
-        //public ObservableCollection<Group> GroupSelected
-        //{
-        //    get { return _GroupSelected; }
-        //    set
-        //    {
-        //        _GroupSelected = value;
-        //        //RaisePropertyChanged("VisitorCollection");
-        //    }
-        //}
-
-        Group _GroupSelected;
-        public Group GroupSelected
-        {
-            get { return _GroupSelected; }
-            set
-            {
-                _GroupSelected = value;
-
-            }
-        }
-
-        /* 조직에 소속된 조직 목록 저장 목록 */
-        private ObservableCollection<InGroup> _SelectedGroupInListCollection = new ObservableCollection<InGroup>();
-        public ObservableCollection<InGroup> SelectedGroupInListCollection
+        /* 논리그룹에 소속된 조직 목록 */
+        private ObservableCollection<ListInGroup> _SelectedGroupInListCollection = new ObservableCollection<ListInGroup>();
+        public ObservableCollection<ListInGroup> SelectedGroupInListCollection
         {
             get { return _SelectedGroupInListCollection; }
             set

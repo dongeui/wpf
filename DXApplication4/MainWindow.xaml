@@ -1,4 +1,4 @@
-﻿<dx:ThemedWindow
+﻿<Window
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
@@ -10,7 +10,7 @@
         x:Class="DXApplication4.MainWindow"
         Title="MainWindow" Height="600" Width="900" SizeToContent="WidthAndHeight" WindowStartupLocation="Manual"
     >
-    <Viewbox>
+    <Viewbox >
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="0.1*" />
@@ -21,14 +21,14 @@
             </Grid.ColumnDefinitions>
 
             <DockPanel HorizontalAlignment="Left" Height="60" VerticalAlignment="Top" Width="900">
-                <dxe:ImageEdit  HorizontalAlignment="Left" Margin="10,10,10,10" VerticalAlignment="Top" Width="100" Height="40"/>
+                <dxe:ImageEdit  HorizontalAlignment="Left" Margin="0,10,0,10" VerticalAlignment="Top" Width="100" Height="40"/>
                 <dx:SimpleButton Content="DoorControl" HorizontalAlignment="Left" Margin="10,10,10,10" VerticalAlignment="Top" Width="100" Height="40" Click="DoorControl_Click"/>
                 <dx:SimpleButton Content="SearchControl" HorizontalAlignment="Left" Margin="10,10,10,10" VerticalAlignment="Top" Width="100" Height="40" Click="SearchControl_Click"/>
             </DockPanel>
 
-            <DockPanel>
+            <DockPanel Margin="0,60,0,10" Width="900" Height="auto">
                 <Frame Name="View" Source="Views/DoorControlView.xaml" ></Frame>
             </DockPanel>
         </Grid>
     </Viewbox>
-</dx:ThemedWindow>
+</Window>
