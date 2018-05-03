@@ -1,0 +1,274 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="ADTSC20Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="CM_AccessEventLog">
+          <Key>
+            <PropertyRef Name="SEQ" />
+          </Key>
+          <Property Name="SEQ" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="AccessUserCard_SID" Type="nvarchar" MaxLength="100" />
+          <Property Name="EventTime" Type="datetime" />
+          <Property Name="MainControllerId" Type="nvarchar" MaxLength="100" />
+          <Property Name="MainControllerName" Type="nvarchar" MaxLength="100" />
+          <Property Name="ControllerNo" Type="nvarchar" MaxLength="100" />
+          <Property Name="ControllerName" Type="nvarchar" MaxLength="100" />
+          <Property Name="ConsoleNo" Type="nvarchar" MaxLength="100" />
+          <Property Name="ConsoleName" Type="nvarchar" MaxLength="100" />
+          <Property Name="DoorNo" Type="int" />
+          <Property Name="RESULT" Type="int" />
+          <Property Name="DoorName" Type="nvarchar" MaxLength="100" />
+          <Property Name="CompanyName" Type="nvarchar" MaxLength="200" />
+          <Property Name="USERID" Type="nvarchar" MaxLength="100" />
+          <Property Name="USERNAME" Type="nvarchar" MaxLength="100" />
+          <Property Name="CARDDATA" Type="nvarchar" MaxLength="100" />
+          <Property Name="EXTENSIONDATA" Type="nvarchar" MaxLength="100" />
+          <Property Name="ACCESS_TYPE" Type="int" />
+          <Property Name="CCServerID" Type="nvarchar" MaxLength="100" />
+          <Property Name="FailureCode" Type="int" />
+          <Property Name="OrganizationId" Type="nvarchar" MaxLength="100" />
+          <Property Name="Organization" Type="nvarchar" MaxLength="100" />
+          <Property Name="MemberID" Type="nvarchar" MaxLength="100" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="Door_DID" Type="nvarchar" MaxLength="100" />
+          <Property Name="Site_SID" Type="nvarchar" MaxLength="100" />
+          <Property Name="ControllerID" Type="nvarchar" MaxLength="100" />
+          <Property Name="ConsoleID" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="OC_OutputportInfo">
+          <Key>
+            <PropertyRef Name="DID" />
+          </Key>
+          <Property Name="DID" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="ParentType" Type="bit" />
+          <Property Name="Output_No" Type="int" />
+          <Property Name="IsEnabled" Type="bit" />
+          <Property Name="Output_Type" Type="int" />
+          <Property Name="Siren_Partition_No" Type="nvarchar" MaxLength="100" />
+          <Property Name="ParentID" Type="nvarchar" MaxLength="100" />
+          <Property Name="ModiyfyBy" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="ModiyfyDate" Type="datetime" Nullable="false" />
+          <Property Name="ModiyfyIP" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Remark" Type="nvarchar(max)" />
+          <Property Name="IsSecureSafety" Type="bit" Nullable="false" />
+          <Property Name="IsAlwaysCloseWhenArm" Type="bit" />
+          <Property Name="IsAlwaysOpenWhenDisArm" Type="bit" />
+          <Property Name="IsHighPass" Type="bit" />
+          <Property Name="IsReportLockState" Type="bit" />
+          <Property Name="Floor" Type="int" />
+        </EntityType>
+        <EntityType Name="UC_Organization">
+          <Key>
+            <PropertyRef Name="SID" />
+          </Key>
+          <Property Name="SID" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="CreatedBy" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+          <Property Name="CreatedIP" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="ModiyfyBy" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="ModiyfyDate" Type="datetime" Nullable="false" />
+          <Property Name="ModiyfyIP" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="IsDelete" Type="bit" Nullable="false" />
+          <Property Name="Remark" Type="nvarchar(max)" />
+          <Property Name="Parent_SID" Type="nvarchar" MaxLength="100" />
+          <Property Name="OrganizationName" Type="nvarchar" MaxLength="100" />
+          <Property Name="OrganizationCategory" Type="nvarchar" MaxLength="100" />
+          <Property Name="SITE_SID" Type="nvarchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityContainer Name="ADTSC20ModelStoreContainer">
+          <EntitySet Name="CM_AccessEventLog" EntityType="Self.CM_AccessEventLog" Schema="ADTSC" store:Type="Tables" />
+          <EntitySet Name="OC_OutputportInfo" EntityType="Self.OC_OutputportInfo" Schema="ADTSC" store:Type="Tables" />
+          <EntitySet Name="UC_Organization" EntityType="Self.UC_Organization" Schema="ADTSC" store:Type="Tables" />
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ADTSC20Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="CM_AccessEventLog">
+          <Key>
+            <PropertyRef Name="SEQ" />
+          </Key>
+          <Property Name="SEQ" Type="Guid" Nullable="false" />
+          <Property Name="AccessUserCard_SID" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="EventTime" Type="DateTime" Precision="3" />
+          <Property Name="MainControllerId" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="MainControllerName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ControllerNo" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ControllerName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ConsoleNo" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ConsoleName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="DoorNo" Type="Int32" />
+          <Property Name="RESULT" Type="Int32" />
+          <Property Name="DoorName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="CompanyName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="USERID" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="USERNAME" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="CARDDATA" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="EXTENSIONDATA" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ACCESS_TYPE" Type="Int32" />
+          <Property Name="CCServerID" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="FailureCode" Type="Int32" />
+          <Property Name="OrganizationId" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Organization" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="MemberID" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="Door_DID" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Site_SID" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ControllerID" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ConsoleID" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="OC_OutputportInfo">
+          <Key>
+            <PropertyRef Name="DID" />
+          </Key>
+          <Property Name="DID" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ParentType" Type="Boolean" />
+          <Property Name="Output_No" Type="Int32" />
+          <Property Name="IsEnabled" Type="Boolean" />
+          <Property Name="Output_Type" Type="Int32" />
+          <Property Name="Siren_Partition_No" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ParentID" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ModiyfyBy" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ModiyfyDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ModiyfyIP" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Remark" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IsSecureSafety" Type="Boolean" Nullable="false" />
+          <Property Name="IsAlwaysCloseWhenArm" Type="Boolean" />
+          <Property Name="IsAlwaysOpenWhenDisArm" Type="Boolean" />
+          <Property Name="IsHighPass" Type="Boolean" />
+          <Property Name="IsReportLockState" Type="Boolean" />
+          <Property Name="Floor" Type="Int32" />
+        </EntityType>
+        <EntityType Name="UC_Organization">
+          <Key>
+            <PropertyRef Name="SID" />
+          </Key>
+          <Property Name="SID" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CreatedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CreatedIP" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ModiyfyBy" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ModiyfyDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ModiyfyIP" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="IsDelete" Type="Boolean" Nullable="false" />
+          <Property Name="Remark" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Parent_SID" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="OrganizationName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="OrganizationCategory" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="SITE_SID" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityContainer Name="ADTSC20Entities2" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="CM_AccessEventLog" EntityType="Self.CM_AccessEventLog" />
+          <EntitySet Name="OC_OutputportInfo" EntityType="Self.OC_OutputportInfo" />
+          <EntitySet Name="UC_Organization" EntityType="Self.UC_Organization" />
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ADTSC20ModelStoreContainer" CdmEntityContainer="ADTSC20Entities2">
+          <EntitySetMapping Name="CM_AccessEventLog">
+            <EntityTypeMapping TypeName="ADTSC20Model.CM_AccessEventLog">
+              <MappingFragment StoreEntitySet="CM_AccessEventLog">
+                <ScalarProperty Name="SEQ" ColumnName="SEQ" />
+                <ScalarProperty Name="AccessUserCard_SID" ColumnName="AccessUserCard_SID" />
+                <ScalarProperty Name="EventTime" ColumnName="EventTime" />
+                <ScalarProperty Name="MainControllerId" ColumnName="MainControllerId" />
+                <ScalarProperty Name="MainControllerName" ColumnName="MainControllerName" />
+                <ScalarProperty Name="ControllerNo" ColumnName="ControllerNo" />
+                <ScalarProperty Name="ControllerName" ColumnName="ControllerName" />
+                <ScalarProperty Name="ConsoleNo" ColumnName="ConsoleNo" />
+                <ScalarProperty Name="ConsoleName" ColumnName="ConsoleName" />
+                <ScalarProperty Name="DoorNo" ColumnName="DoorNo" />
+                <ScalarProperty Name="RESULT" ColumnName="RESULT" />
+                <ScalarProperty Name="DoorName" ColumnName="DoorName" />
+                <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
+                <ScalarProperty Name="USERID" ColumnName="USERID" />
+                <ScalarProperty Name="USERNAME" ColumnName="USERNAME" />
+                <ScalarProperty Name="CARDDATA" ColumnName="CARDDATA" />
+                <ScalarProperty Name="EXTENSIONDATA" ColumnName="EXTENSIONDATA" />
+                <ScalarProperty Name="ACCESS_TYPE" ColumnName="ACCESS_TYPE" />
+                <ScalarProperty Name="CCServerID" ColumnName="CCServerID" />
+                <ScalarProperty Name="FailureCode" ColumnName="FailureCode" />
+                <ScalarProperty Name="OrganizationId" ColumnName="OrganizationId" />
+                <ScalarProperty Name="Organization" ColumnName="Organization" />
+                <ScalarProperty Name="MemberID" ColumnName="MemberID" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="Door_DID" ColumnName="Door_DID" />
+                <ScalarProperty Name="Site_SID" ColumnName="Site_SID" />
+                <ScalarProperty Name="ControllerID" ColumnName="ControllerID" />
+                <ScalarProperty Name="ConsoleID" ColumnName="ConsoleID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OC_OutputportInfo">
+            <EntityTypeMapping TypeName="ADTSC20Model.OC_OutputportInfo">
+              <MappingFragment StoreEntitySet="OC_OutputportInfo">
+                <ScalarProperty Name="DID" ColumnName="DID" />
+                <ScalarProperty Name="ParentType" ColumnName="ParentType" />
+                <ScalarProperty Name="Output_No" ColumnName="Output_No" />
+                <ScalarProperty Name="IsEnabled" ColumnName="IsEnabled" />
+                <ScalarProperty Name="Output_Type" ColumnName="Output_Type" />
+                <ScalarProperty Name="Siren_Partition_No" ColumnName="Siren_Partition_No" />
+                <ScalarProperty Name="ParentID" ColumnName="ParentID" />
+                <ScalarProperty Name="ModiyfyBy" ColumnName="ModiyfyBy" />
+                <ScalarProperty Name="ModiyfyDate" ColumnName="ModiyfyDate" />
+                <ScalarProperty Name="ModiyfyIP" ColumnName="ModiyfyIP" />
+                <ScalarProperty Name="Remark" ColumnName="Remark" />
+                <ScalarProperty Name="IsSecureSafety" ColumnName="IsSecureSafety" />
+                <ScalarProperty Name="IsAlwaysCloseWhenArm" ColumnName="IsAlwaysCloseWhenArm" />
+                <ScalarProperty Name="IsAlwaysOpenWhenDisArm" ColumnName="IsAlwaysOpenWhenDisArm" />
+                <ScalarProperty Name="IsHighPass" ColumnName="IsHighPass" />
+                <ScalarProperty Name="IsReportLockState" ColumnName="IsReportLockState" />
+                <ScalarProperty Name="Floor" ColumnName="Floor" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UC_Organization">
+            <EntityTypeMapping TypeName="ADTSC20Model.UC_Organization">
+              <MappingFragment StoreEntitySet="UC_Organization">
+                <ScalarProperty Name="SID" ColumnName="SID" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedIP" ColumnName="CreatedIP" />
+                <ScalarProperty Name="ModiyfyBy" ColumnName="ModiyfyBy" />
+                <ScalarProperty Name="ModiyfyDate" ColumnName="ModiyfyDate" />
+                <ScalarProperty Name="ModiyfyIP" ColumnName="ModiyfyIP" />
+                <ScalarProperty Name="IsDelete" ColumnName="IsDelete" />
+                <ScalarProperty Name="Remark" ColumnName="Remark" />
+                <ScalarProperty Name="Parent_SID" ColumnName="Parent_SID" />
+                <ScalarProperty Name="OrganizationName" ColumnName="OrganizationName" />
+                <ScalarProperty Name="OrganizationCategory" ColumnName="OrganizationCategory" />
+                <ScalarProperty Name="SITE_SID" ColumnName="SITE_SID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="없음" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

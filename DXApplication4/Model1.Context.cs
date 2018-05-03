@@ -13,10 +13,10 @@ namespace DXApplication4
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class ADTSC20Entities : DbContext
+    public partial class ADTSC20Entities2 : DbContext
     {
-        public ADTSC20Entities()
-            : base("name=ADTSC20Entities")
+        public ADTSC20Entities2()
+            : base("name=ADTSC20Entities2")
         {
         }
     
@@ -25,6 +25,8 @@ namespace DXApplication4
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<CM_UserConfig> CM_UserConfig { get; set; }
+        public virtual DbSet<CM_AccessEventLog> CM_AccessEventLog { get; set; }
+        public virtual DbSet<OC_OutputportInfo> OC_OutputportInfo { get; set; }
+        public virtual DbSet<UC_Organization> UC_Organization { get; set; }
     }
 }

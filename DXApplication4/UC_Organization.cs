@@ -12,21 +12,20 @@ namespace DXApplication4
     using System;
     using System.Collections.Generic;
     
-    public partial class CM_UserConfig
+    public partial class UC_Organization
     {
         public string SID { get; set; }
-        public string User_SID { get; set; }
-        public string System_Value { get; set; }
         public string CreatedBy { get; set; }
-        public string CreatedIP { get; set; }
         public System.DateTime CreatedDate { get; set; }
+        public string CreatedIP { get; set; }
         public string ModiyfyBy { get; set; }
         public System.DateTime ModiyfyDate { get; set; }
         public string ModiyfyIP { get; set; }
-        public string Remark { get; set; }
         public bool IsDelete { get; set; }
-        public string System_Key { get; set; }
-        public string DataType { get; set; }
-        public string Category { get; set; }
+        public string Remark { get; set; }
+        public string Parent_SID { get; set; }
+        public string OrganizationName { get; set; }
+        public string OrganizationCategory { get; set; }
+        public string SITE_SID { get; set; }
     }
 }

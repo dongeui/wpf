@@ -1,10 +1,3 @@
-C:\Users\user\source\repos\DXApplication4\DXApplication4\obj\Debug\MainWindow.g.cs
-C:\Users\user\source\repos\DXApplication4\DXApplication4\obj\Debug\Views\DoorControlView.g.cs
-C:\Users\user\source\repos\DXApplication4\DXApplication4\obj\Debug\Views\SearchView.g.cs
-C:\Users\user\source\repos\DXApplication4\DXApplication4\obj\Debug\App.g.cs
-C:\Users\user\source\repos\DXApplication4\DXApplication4\obj\Debug\DXApplication4_Content.g.cs
-C:\Users\user\source\repos\DXApplication4\DXApplication4\obj\Debug\DXApplication4_MarkupCompile.cache
-C:\Users\user\source\repos\DXApplication4\DXApplication4\obj\Debug\DXApplication4_MarkupCompile.lref
 C:\Users\user\source\repos\DXApplication4\DXApplication4\bin\Debug\DXApplication4.exe.config
 C:\Users\user\source\repos\DXApplication4\DXApplication4\bin\Debug\DXApplication4.exe
 C:\Users\user\source\repos\DXApplication4\DXApplication4\bin\Debug\DXApplication4.pdb
@@ -99,7 +92,14 @@ C:\Users\user\source\repos\DXApplication4\DXApplication4\bin\Debug\de\DevExpress
 C:\Users\user\source\repos\DXApplication4\DXApplication4\bin\Debug\es\DevExpress.Pdf.v15.2.Core.resources.dll
 C:\Users\user\source\repos\DXApplication4\DXApplication4\bin\Debug\ja\DevExpress.Pdf.v15.2.Core.resources.dll
 C:\Users\user\source\repos\DXApplication4\DXApplication4\bin\Debug\ru\DevExpress.Pdf.v15.2.Core.resources.dll
-C:\Users\user\source\repos\DXApplication4\DXApplication4\obj\Debug\DXApplication4.csprojResolveAssemblyReference.cache
+C:\Users\user\source\repos\DXApplication4\DXApplication4\obj\Debug\MainWindow.g.cs
+C:\Users\user\source\repos\DXApplication4\DXApplication4\obj\Debug\Views\DoorControlView.g.cs
+C:\Users\user\source\repos\DXApplication4\DXApplication4\obj\Debug\Views\SearchView.g.cs
+C:\Users\user\source\repos\DXApplication4\DXApplication4\obj\Debug\App.g.cs
+C:\Users\user\source\repos\DXApplication4\DXApplication4\obj\Debug\DXApplication4_Content.g.cs
+C:\Users\user\source\repos\DXApplication4\DXApplication4\obj\Debug\GeneratedInternalTypeHelper.g.cs
+C:\Users\user\source\repos\DXApplication4\DXApplication4\obj\Debug\DXApplication4_MarkupCompile.cache
+C:\Users\user\source\repos\DXApplication4\DXApplication4\obj\Debug\DXApplication4_MarkupCompile.lref
 C:\Users\user\source\repos\DXApplication4\DXApplication4\obj\Debug\MainWindow.baml
 C:\Users\user\source\repos\DXApplication4\DXApplication4\obj\Debug\Views\DoorControlView.baml
 C:\Users\user\source\repos\DXApplication4\DXApplication4\obj\Debug\Views\SearchView.baml
@@ -109,4 +109,4 @@ C:\Users\user\source\repos\DXApplication4\DXApplication4\obj\Debug\DXApplication
 C:\Users\user\source\repos\DXApplication4\DXApplication4\obj\Debug\DXApplication4.exe.licenses
 C:\Users\user\source\repos\DXApplication4\DXApplication4\obj\Debug\DXApplication4.exe
 C:\Users\user\source\repos\DXApplication4\DXApplication4\obj\Debug\DXApplication4.pdb
-C:\Users\user\source\repos\DXApplication4\DXApplication4\obj\Debug\GeneratedInternalTypeHelper.g.cs
+C:\Users\user\source\repos\DXApplication4\DXApplication4\obj\Debug\DXApplication4.csprojResolveAssemblyReference.cache
