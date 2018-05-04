@@ -36,7 +36,7 @@
                         <dx:SimpleButton Content="추가" Height="30" Width="80" Margin="406,341,1079,388" Command="{Binding AddDoorCommand}"/>
                         <dx:SimpleButton Content="삭제" Height="30" Width="80" Margin="406,400,1079,332" Command="{Binding DeleteDoorCommand}"/>
 
-                        <dxg:GridControl Focusable="False" ItemsSource="{Binding SelectedDoorCollection}" SelectedItem="{Binding DeletedDoorSelected}" SelectionMode="Row" AutoGenerateColumns="AddNew" EnableSmartColumnsGeneration="True" HorizontalAlignment="Left" Height="702" Margin="30,30,0,0" VerticalAlignment="Top" MinWidth="200" MinHeight="400" Width="354">
+                        <dxg:GridControl Focusable="True"  ItemsSource="{Binding SelectedDoorCollection}" SelectedItem="{Binding DeletedDoorSelected}" SelectionMode="Row" AutoGenerateColumns="AddNew" EnableSmartColumnsGeneration="True" HorizontalAlignment="Left" Height="702" Margin="30,30,0,0" VerticalAlignment="Top" MinWidth="200" MinHeight="400" Width="354">
                             <dxg:GridControl.View>
                                 <dxg:TableView Focusable="False" ShowCheckBoxSelectorColumn="True"  NavigationStyle="Row"  Margin="0,0,-2,0" UseIndicatorForSelection="False"/>
                             </dxg:GridControl.View>
@@ -62,7 +62,7 @@
                         <dx:SimpleButton Content="삭제"  Height="20" Width="70"  Margin="654,362,850,388" Command="{Binding DeleteGroupListCommand}"/>
                         <TextBox Name="inputGroupName" HorizontalAlignment="Left" Height="23" Margin="30,30,0,0" TextWrapping="Wrap" Text="등록할 그룹명" VerticalAlignment="Top" Width="170"/>
 
-                        <dxg:GridControl Focusable="True"  ItemsSource="{Binding SelectedGroupCollection}" ColumnsSource="{Binding SelectedGroupCollection}" SelectedItem="{Binding GroupSelected}" SelectionMode="Row" AutoGenerateColumns="AddNew" EnableSmartColumnsGeneration="True" HorizontalAlignment="Left" Margin="30,100,0,0" VerticalAlignment="Top" >
+                        <dxg:GridControl Focusable="True" CurrentItemChanged="GridControl_CurrentItemChanged" ItemsSource="{Binding SelectedGroupCollection}" ColumnsSource="{Binding SelectedGroupCollection}" SelectedItem="{Binding GroupSelected}" SelectionMode="Row" AutoGenerateColumns="AddNew" EnableSmartColumnsGeneration="True" HorizontalAlignment="Left" Margin="30,100,0,0" VerticalAlignment="Top" >
                             <dxg:GridControl.View >
                                 <dxg:TableView FocusedRowHandle="{Binding FocusGroup}" FocusedRow="{Binding FocusGroup}" ShowCheckBoxSelectorColumn="True" Name="Group" AllowEditing="False" ShowTotalSummary="True" AutoWidth="False" Width="302" Height="605" VerticalAlignment="Bottom"/>
                             </dxg:GridControl.View>
@@ -74,7 +74,7 @@
                             </dxg:GridControl.View>
                         </dxg:GridControl>
 
-                        <dxg:GridControl Focusable="False" ItemsSource="{Binding Data, Source={StaticResource EntitySimpleDataSource1}}" SelectedItems="{Binding SelectedGroupInListCollection}"  SelectionMode="MultipleRow"  AutoGenerateColumns="AddNew" EnableSmartColumnsGeneration="True" HorizontalAlignment="Left" Margin="758,30,0,0" VerticalAlignment="Top"  Height="700" Width="762" >
+                        <dxg:GridControl Focusable="False" ItemsSource="{Binding Data, Source={StaticResource EntitySimpleDataSource1}}" SelectedItems="{Binding SelectedGroupInListCollection}"  SelectionMode="MultipleRow" AutoGenerateColumns="AddNew" EnableSmartColumnsGeneration="True" HorizontalAlignment="Left" Margin="758,30,0,0" VerticalAlignment="Top"  Height="700" Width="762" >
                             <dxg:GridControl.View>
                                 <dxg:TableView  NavigationStyle="Row"  ShowCheckBoxSelectorColumn="True" />
                             </dxg:GridControl.View>

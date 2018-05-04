@@ -20,11 +20,17 @@ namespace DXApplication4.Views
     /// </summary>
     public partial class DoorControlView : UserControl
     {
+        DoorControlViewModel doorViewModel;
         public DoorControlView()
         {
             InitializeComponent();
-            this.DataContext = new DoorControlViewModel();
+            doorViewModel = new DoorControlViewModel();
+            this.DataContext = doorViewModel;
         }
 
+        private void GridControl_CurrentItemChanged(object sender, DevExpress.Xpf.Grid.CurrentItemChangedEventArgs e)
+        {
+            doorViewModel.ChangeGroupEvent(sender, e);
+        }
     }
 }

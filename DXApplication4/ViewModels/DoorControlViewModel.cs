@@ -9,6 +9,7 @@ using DevExpress.Xpf.Core;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using DevExpress.Xpf.Grid;
+using System.Threading;
 
 namespace DXApplication4.ViewModels
 {
@@ -89,7 +90,7 @@ namespace DXApplication4.ViewModels
             set { _DeleteDic = value; }
         }
      
-        public Dictionary<Group, ObservableCollection<UC_Organization>> Dic { get; set; }
+        public Dictionary<string, ObservableCollection<UC_Organization>> Dic { get; set; }
 
         public DelegateCommand AddDoorCommand { get; set; }
         public DelegateCommand DeleteDoorCommand{ get; set; }
@@ -106,7 +107,8 @@ namespace DXApplication4.ViewModels
             DeleteGroupCommand = new DelegateCommand(DeleteGroupCommandAction);
             AddGroupListCommand = new DelegateCommand(AddGroupListCommandAction);
             DeleteGroupListCommand = new DelegateCommand(DeleteGroupListCommandAction);
-            Dic = new Dictionary<Group, ObservableCollection<UC_Organization>>();
+            //db에서불러와서dic에넣어야겟징
+            Dic = new Dictionary<string, ObservableCollection<UC_Organization>>();
         }
 
         public void AddDoorCommandAction()
@@ -153,7 +155,7 @@ namespace DXApplication4.ViewModels
                 if (!result)
                 {
                     SelectedGroupCollection.Add(inputGroup);
-                    DXMessageBox.Show(param+" 그룹이 추가 되었습니다.");
+                   // DXMessageBox.Show(param+" 그룹이 추가 되었습니다.");
                 }
             }
             catch
@@ -191,10 +193,18 @@ namespace DXApplication4.ViewModels
                 else if (FocusGroup != null && SelectedGroupInListCollection != null)
                 {
                     ObservableCollection<UC_Organization> values = new ObservableCollection<UC_Organization>();
-                    Dic.Add(FocusGroup, SelectedGroupInListCollection);
-                    bool result = Dic.TryGetValue(FocusGroup, out values);
+                    ObservableCollection<UC_Organization> selectedValues = new ObservableCollection<UC_Organization>();
+                    foreach(var a in SelectedGroupInListCollection)
+                    {
+                        selectedValues.Add(a);
+                    }
+                    Dic.Add(FocusGroup.GroupName, selectedValues);
+
+                    bool result = Dic.TryGetValue(FocusGroup.GroupName, out values);
                     if (result)
                     {
+                        SelectedGroupInListCollection.Clear();
+                        ShowDicValues.Clear();
                         foreach(var a in values)
                         {
                             ShowDicValues.Add(a);
@@ -217,16 +227,53 @@ namespace DXApplication4.ViewModels
                 if (DeleteDic != null && FocusGroup != null)
                 {
                     //먼저있던 딕 제거하고
-                    Dic.Remove(FocusGroup);
+                    Dic.Remove(FocusGroup.GroupName);
                     ShowDicValues.Remove(DeleteDic);
-                    //새로셋팅한 딕 넣어주기
-                    Dic.Add(FocusGroup, ShowDicValues);
+
+                    //새로셋팅한 딕 넣어주기, value에 showdic으로넣어줘서 계속초기화가됬었..
+                    ObservableCollection<UC_Organization> selectedValues = new ObservableCollection<UC_Organization>();
+                    foreach (var a in ShowDicValues)
+                    {
+                        selectedValues.Add(a);
+                    }
+
+                    Dic.Add(FocusGroup.GroupName, selectedValues);
+
+                    //삭제하고나면 딕이 초기화된다 , 쇼가 초기화된디
+                    //딕은초기화안됨, 쇼가 초기화되서안나타나는건데..
+                }
+                else
+                {
+
                 } 
             }
             catch
             {
                 MessageBox.Show("논리그룹에 속한 조직을 삭제하지 못 했습니다.");
             }
+        }
+
+        public void ChangeGroupEvent(object sender, DevExpress.Xpf.Grid.CurrentItemChangedEventArgs e)
+        {
+            //변경된 row focusgroup이름 가져와서확인하고 해당하는거에 맞는 dic꺼내서 showdic에 넣기
+            FocusGroup = (Group)e.NewItem;
+            if (FocusGroup != null)
+             {
+                ObservableCollection<UC_Organization> values = new ObservableCollection<UC_Organization>();
+                bool result = Dic.TryGetValue(FocusGroup.GroupName, out values);
+                ShowDicValues.Clear();
+
+                if (result)
+                {
+                    foreach (var a in values)
+                    {
+                        ShowDicValues.Add(a);
+                    }
+                }else
+                {
+                    //MessageBox.Show("그룹에 속한 조직을 가져오지 못 하였습니다.");
+                }
+            } 
         }
 
         public bool Checker(string param)
