@@ -39,11 +39,12 @@ namespace DXApplication4.ViewModels
         /// <summary>
         /// 추가할 출입문 목록
         /// </summary>
-        ObservableCollection<OC_OutputportInfo> _DoorSelected = new ObservableCollection<OC_OutputportInfo>();
-        public ObservableCollection<OC_OutputportInfo> DoorSelected
+        public static ObservableCollection<OC_OutputportInfo> _DoorSelected = new ObservableCollection<OC_OutputportInfo>();
+        public static ObservableCollection<OC_OutputportInfo> DoorSelected
         {
             get { return _DoorSelected; }
-            set { _DoorSelected = value; }
+            set { _DoorSelected = value;}
+            
         }
 
         /// <summary>
@@ -70,8 +71,8 @@ namespace DXApplication4.ViewModels
         /// <summary>
         /// 저장된 논리그룹 목록
         /// </summary>
-        private ObservableCollection<Group> _SelectedGroupCollection = new ObservableCollection<Group>();
-        public ObservableCollection<Group> SelectedGroupCollection
+        public static ObservableCollection<Group> _SelectedGroupCollection = new ObservableCollection<Group>();
+        public static ObservableCollection<Group> SelectedGroupCollection
         {
             get { return _SelectedGroupCollection; }
             set { _SelectedGroupCollection = value; }
@@ -80,8 +81,8 @@ namespace DXApplication4.ViewModels
         /// <summary>
         /// 논리그룹에 추가하기 위해 선택된 조직 목록
         /// </summary>
-        private ObservableCollection<UC_Organization> _SelectedGroupInListCollection = new ObservableCollection<UC_Organization>();
-        public ObservableCollection<UC_Organization> SelectedGroupInListCollection
+        public static  ObservableCollection<UC_Organization> _SelectedGroupInListCollection = new ObservableCollection<UC_Organization>();
+        public static ObservableCollection<UC_Organization> SelectedGroupInListCollection
         {
             get { return _SelectedGroupInListCollection; }
             set { _SelectedGroupInListCollection = value; }

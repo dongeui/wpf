@@ -86,7 +86,6 @@
     <Compile Include="CM_User.cs">
       <DependentUpon>TestModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Door.cs" />
     <Compile Include="Models\Group.cs" />
     <Compile Include="Models\ListInGroup.cs" />
     <Compile Include="OC_OutputportInfo.cs">

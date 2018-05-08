@@ -5,12 +5,16 @@ using System.Data.SqlClient;
 using System.Data;
 using System.Configuration;
 using System.Data.Entity.Core.Objects;
+using System.Collections.ObjectModel;
+using DevExpress.Xpo.DB.Helpers;
+using System.Data.Entity.Infrastructure;
+using System.Windows.Forms;
 
 namespace DXApplication4.ViewModels
 {
     [POCOViewModel]
     public class SearchViewModel
-    {  
+    {
         /* 시작 날짜 파라미터 바인딩 */
         DateTime _StartDate = DateTime.Now.Date.AddDays(-1);
         public DateTime StartDate
@@ -41,9 +45,14 @@ namespace DXApplication4.ViewModels
         {
             SearchCommand = new DelegateCommand(SearchCommandAction);
             ReportCommand = new DelegateCommand(ReportCommandAction);
-            DoorControlViewModel doorViewModel = new DoorControlViewModel();
         }
 
+        ObservableCollection<CM_AccessEventLog> _ResultCollection = new ObservableCollection<CM_AccessEventLog>();
+        public ObservableCollection<CM_AccessEventLog> ResultCollection
+        {
+            get { return _ResultCollection; }
+            set { _ResultCollection = value; }
+        }
 
         public void SearchCommandAction()
         {
@@ -53,23 +62,39 @@ namespace DXApplication4.ViewModels
             //일단모든놈다불러오기?
             try
             {
-                //var conn = ConfigurationManager.ConnectionStrings["ADTSC20Entities"].ConnectionString;
-                //SqlConnection sql = new SqlConnection(conn);
-                //sql.Open();
+                //var conn = ConfigurationManager.ConnectionStrings["ADTSC20"].ToString();
+                //SqlConnection con = new SqlConnection(conn)
 
+                //    con.Open();
+                //    string getQuery = "Select * from OC_OutputportInfo";
+                //    SqlCommand cmd = new SqlCommand(getQuery, con)
+                //    {
+                //        CommandType = CommandType.Text
+                //    };
+                //    var result = cmd.ExecuteNonQuery();
 
-              // // ADTSC20Entities db = new ADTSC20Entities();
-              //  var context = db.UC_Organization;
+                ADTSC20 db = new ADTSC20();
 
+                //논리그룹에 속한 조직들
+                var list = DoorControlViewModel.SelectedGroupInListCollection;
+                //논리그룹
+                var groupList = DoorControlViewModel.SelectedGroupCollection;
+                //출입문
+                var doorList = DoorControlViewModel.DoorSelected;
 
+                //3개 조건을 가지고 일단 ACCESSEVENTLOG에서 가져오기
+                //우선 Door_DID만 맞는거 가져와보기
 
-                //MemberListView.ItemSource = query.ToList();
+              
+                foreach(var a in doorList)
+                {
+                    string query = "Select * from db.CM_AccessEventLog where Door_DID = @DID";
+                    SqlCommand cmd = new SqlCommand(query);
+                    cmd.Parameters.Add("@DID", SqlDbType.Char);
+                    cmd.Parameters["@DID"].Value = a.DID;
+                    MessageBox.Show("실행 : " + cmd.ExecuteNonQuery());
 
-
-                string getQuery = "Select * from UC_Organization";
-                SqlCommand cmd = new SqlCommand(getQuery);
-                //SqlDataReader reader =  cmd.ExecuteXmlReader();
-                SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+                }
 
             }
             catch
@@ -91,6 +116,11 @@ namespace DXApplication4.ViewModels
         }
 
      
+
+    }
+
+    public class TestDbSet : CM_AccessEventLog
+    {
 
     }
     
