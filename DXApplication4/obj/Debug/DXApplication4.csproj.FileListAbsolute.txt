@@ -1,6 +1,5 @@
-C:\Users\user\source\repos\DXApplication4\DXApplication4\bin\Debug\DXApplication4.exe.config
 C:\Users\user\source\repos\DXApplication4\DXApplication4\bin\Debug\DXApplication4.exe
-C:\Users\user\source\repos\DXApplication4\DXApplication4\bin\Debug\DXApplication4.pdb
+C:\Users\user\source\repos\DXApplication4\DXApplication4\bin\Debug\DXApplication4.exe.config
 C:\Users\user\source\repos\DXApplication4\DXApplication4\bin\Debug\DevExpress.Data.v15.2.dll
 C:\Users\user\source\repos\DXApplication4\DXApplication4\bin\Debug\DevExpress.Mvvm.v15.2.dll
 C:\Users\user\source\repos\DXApplication4\DXApplication4\bin\Debug\DevExpress.Printing.v15.2.Core.dll
@@ -105,8 +104,11 @@ C:\Users\user\source\repos\DXApplication4\DXApplication4\obj\Debug\Views\DoorCon
 C:\Users\user\source\repos\DXApplication4\DXApplication4\obj\Debug\Views\SearchView.baml
 C:\Users\user\source\repos\DXApplication4\DXApplication4\obj\Debug\DXApplication4.g.resources
 C:\Users\user\source\repos\DXApplication4\DXApplication4\obj\Debug\DXApplication4.Properties.Resources.resources
-C:\Users\user\source\repos\DXApplication4\DXApplication4\obj\Debug\DXApplication4.csproj.GenerateResource.Cache
+C:\Users\user\source\repos\DXApplication4\DXApplication4\obj\Debug\DXApplication4.csproj.GenerateResource.cache
 C:\Users\user\source\repos\DXApplication4\DXApplication4\obj\Debug\DXApplication4.exe.licenses
+C:\Users\user\source\repos\DXApplication4\DXApplication4\obj\Debug\DXApplication4.csproj.CoreCompileInputs.cache
+C:\Users\user\source\repos\DXApplication4\DXApplication4\obj\Debug\DXApplication4.csproj.CopyComplete
 C:\Users\user\source\repos\DXApplication4\DXApplication4\obj\Debug\DXApplication4.exe
 C:\Users\user\source\repos\DXApplication4\DXApplication4\obj\Debug\DXApplication4.pdb
-C:\Users\user\source\repos\DXApplication4\DXApplication4\obj\Debug\DXApplication4.csprojResolveAssemblyReference.cache
+C:\Users\user\source\repos\DXApplication4\DXApplication4\bin\Debug\DXApplication4.pdb
+C:\Users\user\source\repos\DXApplication4\DXApplication4\obj\Debug\DXApplication4.csprojAssemblyReference.cache

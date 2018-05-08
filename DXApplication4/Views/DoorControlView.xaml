@@ -9,19 +9,19 @@
              xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid" 
              xmlns:DXApplication4="clr-namespace:DXApplication4" 
              x:Class="DXApplication4.Views.DoorControlView"
-             xmlns:local ="clr-namespace:DXApplication4.ViewModels"
+             xmlns:local ="clr-namespace:DXApplication4"
              mc:Ignorable="d"
              
              d:DesignHeight="540" d:DesignWidth="900">
 
 
     <UserControl.Resources>
-        <dx:EntitySimpleDataSource x:Key="EntitySimpleDataSource" ContextType="{x:Type DXApplication4:ADTSC20Entities2}" Path="OC_OutputportInfo">
+        <dx:EntitySimpleDataSource x:Key="EntitySimpleDataSource" ContextType="{x:Type DXApplication4:ADTSC20}" Path="OC_OutputportInfo">
             <dx:DesignDataManager.DesignData>
                 <dx:DesignDataSettings RowCount="5"/>
             </dx:DesignDataManager.DesignData>
         </dx:EntitySimpleDataSource>
-        <dx:EntitySimpleDataSource x:Key="EntitySimpleDataSource1" ContextType="{x:Type DXApplication4:ADTSC20Entities2}" Path="UC_Organization">
+        <dx:EntitySimpleDataSource x:Key="EntitySimpleDataSource1" ContextType="{x:Type DXApplication4:ADTSC20}" Path="UC_Organization">
             <dx:DesignDataManager.DesignData>
                 <dx:DesignDataSettings RowCount="5"/>
             </dx:DesignDataManager.DesignData>
@@ -33,16 +33,20 @@
             <dx:DXTabControl Height="auto" Margin="0,0,0,0" Width="auto">
                 <dx:DXTabItem Header="출입문 관리">
                     <Grid Background="Transparent">
-                        <dx:SimpleButton Content="추가" Height="30" Width="80" Margin="406,341,1079,388" Command="{Binding AddDoorCommand}"/>
-                        <dx:SimpleButton Content="삭제" Height="30" Width="80" Margin="406,400,1079,332" Command="{Binding DeleteDoorCommand}"/>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="128*"/>
+                            <ColumnDefinition Width="1437*"/>
+                        </Grid.ColumnDefinitions>
+                        <dx:SimpleButton Content="추가" Height="30" Width="80" Margin="277.578,342,1079,390" Command="{Binding AddDoorCommand}" Grid.Column="1"/>
+                        <dx:SimpleButton Content="삭제" Height="30" Width="80" Margin="277.578,400,1079,332" Command="{Binding DeleteDoorCommand}" Grid.Column="1"/>
 
-                        <dxg:GridControl Focusable="True"  ItemsSource="{Binding SelectedDoorCollection}" SelectedItem="{Binding DeletedDoorSelected}" SelectionMode="Row" AutoGenerateColumns="AddNew" EnableSmartColumnsGeneration="True" HorizontalAlignment="Left" Height="702" Margin="30,30,0,0" VerticalAlignment="Top" MinWidth="200" MinHeight="400" Width="354">
-                            <dxg:GridControl.View>
+                        <dxg:GridControl  Focusable="True"  ItemsSource="{Binding SelectedDoorCollection}" SelectedItem="{Binding DeletedDoorSelected}" SelectionMode="Row" AutoGenerateColumns="AddNew" EnableSmartColumnsGeneration="True" HorizontalAlignment="Left" Height="702" Margin="30,30,0,0" VerticalAlignment="Top" MinWidth="200" MinHeight="400" Width="222" Grid.ColumnSpan="2">
+                            <dxg:GridControl.View >
                                 <dxg:TableView Focusable="False" ShowCheckBoxSelectorColumn="True"  NavigationStyle="Row"  Margin="0,0,-2,0" UseIndicatorForSelection="False"/>
                             </dxg:GridControl.View>
                         </dxg:GridControl>
 
-                        <dxg:GridControl  Focusable="False" ItemsSource="{Binding Data, Source={StaticResource EntitySimpleDataSource}}"  SelectedItems="{Binding DoorSelected}"  SelectionMode="MultipleRow"  AutoGenerateColumns="AddNew" EnableSmartColumnsGeneration="True" HorizontalAlignment="Left" Margin="515,30,0,0" VerticalAlignment="Top" MinWidth="390" MinHeight="400" MaxWidth="400" Height="702" Width="1032"  >
+                        <dxg:GridControl  Focusable="False" ItemsSource="{Binding Data, Source={StaticResource EntitySimpleDataSource}}"  SelectedItems="{Binding DoorSelected}"  SelectionMode="MultipleRow"  AutoGenerateColumns="AddNew" EnableSmartColumnsGeneration="True" HorizontalAlignment="Left" Margin="386.578,30,0,0" VerticalAlignment="Top" MinWidth="390" MinHeight="400" MaxWidth="400" Height="702" Width="1032" Grid.Column="1"  >
                             <dxg:GridControl.View>
                                 <dxg:TableView Focusable="False" ShowCheckBoxSelectorColumn="True" NavigationStyle="Row" Margin="0,0,-634,0" UseIndicatorForSelection="False"/>
                             </dxg:GridControl.View>
@@ -54,7 +58,7 @@
 
 
 
-                <dx:DXTabItem Header="조직 관리">
+                <dx:DXTabItem Header="조직 관리" Height="22" VerticalAlignment="Bottom">
                     <Grid Background="Transparent">
                         <dx:SimpleButton Content="등록"  Height="20" Width="70"  Margin="30,67,1474,683" Command="{Binding AddGroupCommand}" CommandParameter="{Binding Text, ElementName=inputGroupName}" />
                         <dx:SimpleButton Content="제거"  Height="20" Width="70"  Margin="264,67,1240,683" Command="{Binding DeleteGroupCommand}"/>

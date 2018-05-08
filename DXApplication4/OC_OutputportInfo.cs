@@ -31,5 +31,6 @@ namespace DXApplication4
         public Nullable<bool> IsHighPass { get; set; }
         public Nullable<bool> IsReportLockState { get; set; }
         public Nullable<int> Floor { get; set; }
+        public Nullable<bool> IsIndoorPerson { get; set; }
     }
 }

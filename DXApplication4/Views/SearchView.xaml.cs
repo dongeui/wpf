@@ -23,6 +23,7 @@ namespace DXApplication4.Views
         public SearchView()
         {
             InitializeComponent();
+            this.DataContext = new DoorControlViewModel();
             this.DataContext = new SearchViewModel();
         }
     }

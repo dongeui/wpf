@@ -13,10 +13,10 @@ namespace DXApplication4
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class ADTSC20Entities2 : DbContext
+    public partial class ADTSC20 : DbContext
     {
-        public ADTSC20Entities2()
-            : base("name=ADTSC20Entities2")
+        public ADTSC20()
+            : base("name=ADTSC20")
         {
         }
     
@@ -26,6 +26,7 @@ namespace DXApplication4
         }
     
         public virtual DbSet<CM_AccessEventLog> CM_AccessEventLog { get; set; }
+        public virtual DbSet<CM_User> CM_User { get; set; }
         public virtual DbSet<OC_OutputportInfo> OC_OutputportInfo { get; set; }
         public virtual DbSet<UC_Organization> UC_Organization { get; set; }
     }
