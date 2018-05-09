@@ -9,6 +9,7 @@ using System.Collections.ObjectModel;
 using DevExpress.Xpo.DB.Helpers;
 using System.Data.Entity.Infrastructure;
 using System.Windows.Forms;
+using System.Data.Entity.Core.EntityClient;
 
 namespace DXApplication4.ViewModels
 {
@@ -62,7 +63,6 @@ namespace DXApplication4.ViewModels
             //일단모든놈다불러오기?
             try
             {
-                //var conn = ConfigurationManager.ConnectionStrings["ADTSC20"].ToString();
                 //SqlConnection con = new SqlConnection(conn)
 
                 //    con.Open();
@@ -85,21 +85,30 @@ namespace DXApplication4.ViewModels
                 //3개 조건을 가지고 일단 ACCESSEVENTLOG에서 가져오기
                 //우선 Door_DID만 맞는거 가져와보기
 
-              
-                foreach(var a in doorList)
+                var connectionString = ConfigurationManager.ConnectionStrings["ADTSC20"].ConnectionString;
+                var builder = new EntityConnectionStringBuilder(connectionString);
+                var regularConnectionString = builder.ProviderConnectionString;
+
+                using(SqlConnection connection = new SqlConnection())
                 {
+                    connection.ConnectionString = connectionString;
+                    connection.Open();
+
                     string query = "Select * from db.CM_AccessEventLog where Door_DID = @DID";
                     SqlCommand cmd = new SqlCommand(query);
-                    cmd.Parameters.Add("@DID", SqlDbType.Char);
-                    cmd.Parameters["@DID"].Value = a.DID;
-                    MessageBox.Show("실행 : " + cmd.ExecuteNonQuery());
+                    cmd.Parameters.Add("@DID", SqlDbType.NVarChar);
 
+                    foreach (var a in doorList)
+                    {
+                        cmd.Parameters["@DID"].Value = a.DID;
+                        var aaaa = cmd.ExecuteNonQuery();
+                        MessageBox.Show("실행 : " + aaaa);
+                    }
                 }
-
             }
-            catch
+            catch(Exception e)
             {
-
+                MessageBox.Show(e.Message);
             }
         }
 
