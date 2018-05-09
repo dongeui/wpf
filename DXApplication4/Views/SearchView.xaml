@@ -3,8 +3,14 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:dxmvvm="http://schemas.devexpress.com/winfx/2008/xaml/mvvm" xmlns:ViewModels="clr-namespace:DXApplication4.ViewModels"
-             xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid" xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors" xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core" x:Class="DXApplication4.Views.SearchView"
+             xmlns:dxmvvm="http://schemas.devexpress.com/winfx/2008/xaml/mvvm" 
+             xmlns:ViewModels="clr-namespace:DXApplication4.ViewModels"
+             xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid" 
+             xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors" 
+             xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core" 
+             x:Class="DXApplication4.Views.SearchView"
+             xmlns:DXApplication4="clr-namespace:DXApplication4" 
+             xmlns:local ="clr-namespace:DXApplication4"
              mc:Ignorable="d"
              d:DesignHeight="540" d:DesignWidth="900">
     
@@ -12,7 +18,7 @@
         <Grid>
             <dxe:DateEdit EditValue="{Binding StartDate}" HorizontalAlignment="Left" Margin="30,30,0,0" VerticalAlignment="Top" Width="100" Height="30" Background="#FFFFFBFB" Text="시작 날짜"/>
             <dxe:DateEdit EditValue="{Binding EndDate}" HorizontalAlignment="Left" Margin="160,30,0,0" VerticalAlignment="Top" Width="100"  Height="30" Text="마감 날짜"/>
-            <dx:SimpleButton Content="조희" HorizontalAlignment="Left" Height="30" Width="100" Margin="288,30,0,0" VerticalAlignment="Top" Command="{Binding SearchCommand}"/>
+            <dx:SimpleButton Content="조회" HorizontalAlignment="Left" Height="30" Width="100" Margin="288,30,0,0" VerticalAlignment="Top" Command="{Binding SearchCommand}"/>
             <dx:SimpleButton Content="Report" HorizontalAlignment="Left" Height="30" Width="100" Margin="1450,30,0,0" VerticalAlignment="Top" Command="{Binding ReportCommand}"/>
 
             <dxg:GridControl ItemsSource="{Binding SelectedGroupCollection}" Grid.Row="0" AutoGenerateColumns="AddNew" EnableSmartColumnsGeneration="True" HorizontalAlignment="Left" Height="700" VerticalAlignment="Top" Width="358" Margin="30,82,0,0">
@@ -25,16 +31,16 @@
                 </dxg:GridControl.View>
             </dxg:GridControl>
 
-            <dxg:GridControl ItemsSource="{Binding ResultCollection}" AutoGenerateColumns="AddNew"  HorizontalAlignment="Left" Height="700" VerticalAlignment="Top" Width="1105" Margin="445,82,0,0">
+            <dxg:GridControl x:Name="MemberListView" ItemsSource="{Binding DataTable}" AutoGenerateColumns="AddNew"  HorizontalAlignment="Left" Height="700" VerticalAlignment="Top" Width="1105" Margin="445,82,0,0">
                 <dxg:GridControl.Columns>
-                    <dxg:GridColumn FieldName="GroupName" />
+                    <!--<dxg:GridColumn FieldName="GroupName" />
                     <dxg:GridColumn FieldName="UserName"/>
                     <dxg:GridColumn FieldName="UserNumber"/>
                     <dxg:GridColumn FieldName="Position"/>
-                    <dxg:GridColumn FieldName="Time"/>
+                    <dxg:GridColumn FieldName="Time"/>-->
                 </dxg:GridControl.Columns>
                 <dxg:GridControl.View>
-                    <dxg:TableView Name="MemberListView" AllowPerPixelScrolling="True" ShowTotalSummary="True"/>
+                    <dxg:TableView  AllowPerPixelScrolling="True" ShowTotalSummary="True"/>
                 </dxg:GridControl.View>
             </dxg:GridControl>
 

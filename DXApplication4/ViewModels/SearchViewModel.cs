@@ -10,13 +10,13 @@ using DevExpress.Xpo.DB.Helpers;
 using System.Data.Entity.Infrastructure;
 using System.Windows.Forms;
 using System.Data.Entity.Core.EntityClient;
+using DXApplication4.Views;
 
 namespace DXApplication4.ViewModels
 {
     [POCOViewModel]
     public class SearchViewModel
     {
-        /* 시작 날짜 파라미터 바인딩 */
         DateTime _StartDate = DateTime.Now.Date.AddDays(-1);
         public DateTime StartDate
         {
@@ -28,7 +28,6 @@ namespace DXApplication4.ViewModels
             }
         }
 
-        /*끝날짜 파라미터 바인딩 */
         DateTime _EndDate = DateTime.Now.Date;
         public DateTime EndDate
         {
@@ -42,39 +41,37 @@ namespace DXApplication4.ViewModels
 
         public DelegateCommand SearchCommand { get; set; }
         public DelegateCommand ReportCommand { get; set; }
+        public SearchView searchView;
         public SearchViewModel()
         {
             SearchCommand = new DelegateCommand(SearchCommandAction);
             ReportCommand = new DelegateCommand(ReportCommandAction);
         }
 
-        ObservableCollection<CM_AccessEventLog> _ResultCollection = new ObservableCollection<CM_AccessEventLog>();
-        public ObservableCollection<CM_AccessEventLog> ResultCollection
+        DataTable _DataTable = new DataTable();
+        public DataTable DataTable
+        {
+            get { return _DataTable; }
+            set { _DataTable = value; }
+        }
+
+        ObservableCollection<DataTable> _ResultCollection = new ObservableCollection<DataTable>();
+        public ObservableCollection<DataTable> ResultCollection
         {
             get { return _ResultCollection; }
             set { _ResultCollection = value; }
         }
+        DataView _ResultView = new DataView();
+        public DataView ResultView
+        {
+            get { return _ResultView; }
+            set { _ResultView = value; }
+        }
 
         public void SearchCommandAction()
         {
-            //시작,마감 날짜로 GroupListView MemberListView 업데이트
-            //삭제했던 논리그룹.멤버도 디비에 저장하고 있다가 날짜선택에 따라서 불러와야함
-            //중복은?
-            //일단모든놈다불러오기?
             try
             {
-                //SqlConnection con = new SqlConnection(conn)
-
-                //    con.Open();
-                //    string getQuery = "Select * from OC_OutputportInfo";
-                //    SqlCommand cmd = new SqlCommand(getQuery, con)
-                //    {
-                //        CommandType = CommandType.Text
-                //    };
-                //    var result = cmd.ExecuteNonQuery();
-
-                ADTSC20 db = new ADTSC20();
-
                 //논리그룹에 속한 조직들
                 var list = DoorControlViewModel.SelectedGroupInListCollection;
                 //논리그룹
@@ -82,35 +79,54 @@ namespace DXApplication4.ViewModels
                 //출입문
                 var doorList = DoorControlViewModel.DoorSelected;
 
-                //3개 조건을 가지고 일단 ACCESSEVENTLOG에서 가져오기
-                //우선 Door_DID만 맞는거 가져와보기
-
-                var connectionString = ConfigurationManager.ConnectionStrings["ADTSC20"].ConnectionString;
-                var builder = new EntityConnectionStringBuilder(connectionString);
+                var builder = new EntityConnectionStringBuilder(ConfigurationManager.ConnectionStrings["ADTSC20"].ConnectionString);
                 var regularConnectionString = builder.ProviderConnectionString;
+                SqlConnection connection = new SqlConnection(regularConnectionString);
+                string query = "Select Eventtime, DoorName, AccessUserCard_SID, USERNAME " +
+                               "from ADTSC.CM_AccessEventLog " +
+                               "where Door_DID = @DID" +
+                               " AND " +
+                               "EventTime BETWEEN @STARTDATE AND @ENDDATE";
 
-                using(SqlConnection connection = new SqlConnection())
+                SqlCommand cmd = new SqlCommand(query, connection);
+                cmd.Parameters.Add("@DID", SqlDbType.NVarChar);
+                cmd.Parameters.Add("@STARTDATE", SqlDbType.DateTime);
+                cmd.Parameters.Add("@ENDDATE", SqlDbType.DateTime);
+
+                //DataTable tT = new DataTable();
+                SqlDataReader reader;
+        
+                var state = connection.State.ToString();
+                if(state.Equals("Closed"))
                 {
-                    connection.ConnectionString = connectionString;
                     connection.Open();
-
-                    string query = "Select * from db.CM_AccessEventLog where Door_DID = @DID";
-                    SqlCommand cmd = new SqlCommand(query);
-                    cmd.Parameters.Add("@DID", SqlDbType.NVarChar);
-
                     foreach (var a in doorList)
                     {
                         cmd.Parameters["@DID"].Value = a.DID;
-                        var aaaa = cmd.ExecuteNonQuery();
-                        MessageBox.Show("실행 : " + aaaa);
+                        cmd.Parameters["@STARTDATE"].Value = StartDate;
+                        cmd.Parameters["@ENDDATE"].Value = EndDate;
+                        reader = cmd.ExecuteReader();
+
+                        if (reader.HasRows)
+                        {
+                            DataTable.Load(reader);
+                            ResultCollection.Add(DataTable);
+                            reader.Close();
+                        }
+                        else
+                        {
+                            reader.Close();
+                        }
                     }
+                    connection.Close();
                 }
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 MessageBox.Show(e.Message);
             }
         }
+
 
         public void ReportCommandAction()
         {
@@ -124,13 +140,8 @@ namespace DXApplication4.ViewModels
             }
         }
 
-     
+
 
     }
 
-    public class TestDbSet : CM_AccessEventLog
-    {
-
-    }
-    
 }
