@@ -40,13 +40,13 @@
                         <dx:SimpleButton Content="추가" Height="30" Width="80" Margin="277.578,342,1079,390" Command="{Binding AddDoorCommand}" Grid.Column="1"/>
                         <dx:SimpleButton Content="삭제" Height="30" Width="80" Margin="277.578,400,1079,332" Command="{Binding DeleteDoorCommand}" Grid.Column="1"/>
 
-                        <dxg:GridControl  Focusable="True"  ItemsSource="{Binding SelectedDoorCollection}" SelectedItem="{Binding DeletedDoorSelected}" SelectionMode="Row" AutoGenerateColumns="AddNew" EnableSmartColumnsGeneration="True" HorizontalAlignment="Left" Height="702" Margin="30,30,0,0" VerticalAlignment="Top" MinWidth="200" MinHeight="400" Width="222" Grid.ColumnSpan="2">
+                        <dxg:GridControl  Focusable="False"  ItemsSource="{Binding SelectedDoorCollection}" SelectedItem="{Binding DeletedDoorSelected}" SelectionMode="Row" AutoGenerateColumns="AddNew" EnableSmartColumnsGeneration="True" HorizontalAlignment="Left" Height="702" Margin="30,30,0,0" VerticalAlignment="Top" MinWidth="200" MinHeight="400" Width="222" Grid.ColumnSpan="2">
                             <dxg:GridControl.View >
                                 <dxg:TableView Focusable="False" ShowCheckBoxSelectorColumn="True"  NavigationStyle="Row"  Margin="0,0,-2,0" UseIndicatorForSelection="False"/>
                             </dxg:GridControl.View>
                         </dxg:GridControl>
 
-                        <dxg:GridControl  Focusable="False" ItemsSource="{Binding Data, Source={StaticResource EntitySimpleDataSource}}"  SelectedItems="{Binding DoorSelected}"  SelectionMode="MultipleRow"  AutoGenerateColumns="AddNew" EnableSmartColumnsGeneration="True" HorizontalAlignment="Left" Margin="386.578,30,0,0" VerticalAlignment="Top" MinWidth="390" MinHeight="400" MaxWidth="400" Height="702" Width="1032" Grid.Column="1"  >
+                        <dxg:GridControl  GroupCount="3" Focusable="False" ItemsSource="{Binding Data, Source={StaticResource EntitySimpleDataSource}}"  SelectedItems="{Binding DoorSelected}"  SelectionMode="MultipleRow"  AutoGenerateColumns="AddNew" EnableSmartColumnsGeneration="True" HorizontalAlignment="Left" Margin="386.578,30,0,0" VerticalAlignment="Top" MinWidth="390" MinHeight="400" MaxWidth="400" Height="702" Width="1032" Grid.Column="1"  >
                             <dxg:GridControl.View>
                                 <dxg:TableView Focusable="False" ShowCheckBoxSelectorColumn="True" NavigationStyle="Row" Margin="0,0,-634,0" UseIndicatorForSelection="False"/>
                             </dxg:GridControl.View>
@@ -68,7 +68,7 @@
 
                         <dxg:GridControl Focusable="True" CurrentItemChanged="GridControl_CurrentItemChanged" ItemsSource="{Binding SelectedGroupCollection}" ColumnsSource="{Binding SelectedGroupCollection}" SelectedItem="{Binding GroupSelected}" SelectionMode="Row" AutoGenerateColumns="AddNew" EnableSmartColumnsGeneration="True" HorizontalAlignment="Left" Margin="30,100,0,0" VerticalAlignment="Top" >
                             <dxg:GridControl.View >
-                                <dxg:TableView FocusedRowHandle="{Binding FocusGroup}" FocusedRow="{Binding FocusGroup}" ShowCheckBoxSelectorColumn="True" Name="Group" AllowEditing="False" ShowTotalSummary="True" AutoWidth="False" Width="302" Height="605" VerticalAlignment="Bottom"/>
+                                <dxg:TableView  FocusedRow="{Binding FocusGroup}" ShowCheckBoxSelectorColumn="True" Name="Group" AllowEditing="False" ShowTotalSummary="True" AutoWidth="False" Width="302" Height="605" VerticalAlignment="Bottom"/>
                             </dxg:GridControl.View>
                         </dxg:GridControl>
 

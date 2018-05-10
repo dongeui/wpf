@@ -215,9 +215,18 @@ namespace DXApplication4.ViewModels
 
                         if (reader.HasRows)
                         {
+                            if (UserDataTable.Columns.Contains("GroupName"))
+                            {
+                                UserDataTable.Columns["GroupName"].DefaultValue = groupName;
+                                //UserDataTable.Columns.Remove("GroupName");
+                            }else if (!UserDataTable.Columns.Contains("GroupName"))
+                            {
+                                UserDataTable.Columns.Add("GroupName", typeof(string));
+                                UserDataTable.Columns["GroupName"].DefaultValue = groupName;
+                            }
+
                             UserDataTable.Load(reader);
-                            //그룹명,날짜로 조회한 데이터테이블을 해당 그룹명으로 dic에저장
-                            //나중에 dic에서 그룹명이랑 논리그룹에 속한 그룹명이랑 매치
+
                             var dicTuple = new Tuple<string, string>(groupName, organ);
                             GroupDic.Add(dicTuple, UserDataTable);
                             reader.Close();

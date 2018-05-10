@@ -22,22 +22,13 @@
             <dx:SimpleButton Content="Report" HorizontalAlignment="Left" Height="30" Width="100" Margin="1450,30,0,0" VerticalAlignment="Top" Command="{Binding ReportCommand}"/>
 
             <dxg:GridControl ItemsSource="{Binding CountDicCollection}" AutoGenerateColumns="AddNew"  EnableSmartColumnsGeneration="True" HorizontalAlignment="Left" Height="700" VerticalAlignment="Top" Width="358" Margin="30,82,0,0">
-                <dxg:GridControl.View>
-                    <dxg:TableView  AllowPerPixelScrolling="True" ShowTotalSummary="True"/>
-                </dxg:GridControl.View>
+        
             </dxg:GridControl>
 
             <dxg:GridControl ItemsSource="{Binding UserDataTable}" AutoGenerateColumns="AddNew"  HorizontalAlignment="Left" Height="700" VerticalAlignment="Top" Width="1105" Margin="445,82,0,0">
-                <dxg:GridControl.Columns>
-                    <!--<dxg:GridColumn FieldName="GroupName" />
-                    <dxg:GridColumn FieldName="UserName"/>
-                    <dxg:GridColumn FieldName="UserNumber"/>
-                    <dxg:GridColumn FieldName="Position"/>
-                    <dxg:GridColumn FieldName="Time"/>-->
-                </dxg:GridControl.Columns>
-                <dxg:GridControl.View>
-                    <dxg:TableView  AllowPerPixelScrolling="True" ShowTotalSummary="True"/>
-                </dxg:GridControl.View>
+                <!--<dxg:GridControl.Columns>
+                    <dxg:GridColumn Header="GroupName" Binding="{Binding GroupName}"/>
+                </dxg:GridControl.Columns>-->
             </dxg:GridControl>
 
         </Grid>
