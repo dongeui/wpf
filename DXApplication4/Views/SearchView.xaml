@@ -21,17 +21,13 @@
             <dx:SimpleButton Content="조회" HorizontalAlignment="Left" Height="30" Width="100" Margin="288,30,0,0" VerticalAlignment="Top" Command="{Binding SearchCommand}"/>
             <dx:SimpleButton Content="Report" HorizontalAlignment="Left" Height="30" Width="100" Margin="1450,30,0,0" VerticalAlignment="Top" Command="{Binding ReportCommand}"/>
 
-            <dxg:GridControl ItemsSource="{Binding SelectedGroupCollection}" Grid.Row="0" AutoGenerateColumns="AddNew" EnableSmartColumnsGeneration="True" HorizontalAlignment="Left" Height="700" VerticalAlignment="Top" Width="358" Margin="30,82,0,0">
-                <dxg:GridControl.Columns>
-                    <dxg:GridColumn FieldName="Group Name" />
-                    <dxg:GridColumn FieldName="Count"/>
-                </dxg:GridControl.Columns>
+            <dxg:GridControl ItemsSource="{Binding CountDicCollection}" AutoGenerateColumns="AddNew"  EnableSmartColumnsGeneration="True" HorizontalAlignment="Left" Height="700" VerticalAlignment="Top" Width="358" Margin="30,82,0,0">
                 <dxg:GridControl.View>
-                    <dxg:TableView Name="GroupListView" AllowPerPixelScrolling="True" ShowTotalSummary="True"/>
+                    <dxg:TableView  AllowPerPixelScrolling="True" ShowTotalSummary="True"/>
                 </dxg:GridControl.View>
             </dxg:GridControl>
 
-            <dxg:GridControl x:Name="MemberListView" ItemsSource="{Binding DataTable}" AutoGenerateColumns="AddNew"  HorizontalAlignment="Left" Height="700" VerticalAlignment="Top" Width="1105" Margin="445,82,0,0">
+            <dxg:GridControl ItemsSource="{Binding UserDataTable}" AutoGenerateColumns="AddNew"  HorizontalAlignment="Left" Height="700" VerticalAlignment="Top" Width="1105" Margin="445,82,0,0">
                 <dxg:GridControl.Columns>
                     <!--<dxg:GridColumn FieldName="GroupName" />
                     <dxg:GridColumn FieldName="UserName"/>

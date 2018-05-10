@@ -11,9 +11,23 @@ using System.Data.Entity.Infrastructure;
 using System.Windows.Forms;
 using System.Data.Entity.Core.EntityClient;
 using DXApplication4.Views;
+using DXApplication4.Models;
+using System.Text.RegularExpressions;
+using System.Collections.Generic;
 
 namespace DXApplication4.ViewModels
 {
+    public class CountClass
+    {
+        public string GroupName { get; set; }
+        public int Count { get; set; }
+        public CountClass(string _name, int _count)
+        {
+            GroupName = _name;
+            Count = _count;
+        }
+    }
+
     [POCOViewModel]
     public class SearchViewModel
     {
@@ -41,6 +55,7 @@ namespace DXApplication4.ViewModels
 
         public DelegateCommand SearchCommand { get; set; }
         public DelegateCommand ReportCommand { get; set; }
+
         public SearchView searchView;
         public SearchViewModel()
         {
@@ -48,19 +63,31 @@ namespace DXApplication4.ViewModels
             ReportCommand = new DelegateCommand(ReportCommandAction);
         }
 
-        DataTable _DataTable = new DataTable();
-        public DataTable DataTable
+        DataTable _UserDataTable = new DataTable();
+        public DataTable UserDataTable
         {
-            get { return _DataTable; }
-            set { _DataTable = value; }
+            get { return _UserDataTable; }
+            set { _UserDataTable = value; }
         }
 
-        ObservableCollection<DataTable> _ResultCollection = new ObservableCollection<DataTable>();
-        public ObservableCollection<DataTable> ResultCollection
+        DataTable _GroupDataTable = new DataTable();
+        public DataTable GroupDataTable
         {
-            get { return _ResultCollection; }
-            set { _ResultCollection = value; }
+            get { return _GroupDataTable; }
+            set { _GroupDataTable = value; }
         }
+
+        public static Dictionary<Tuple<string, string>, DataTable> GroupDic = new Dictionary<Tuple<string, string>, DataTable>();
+
+
+        public ObservableCollection<CountClass> _CountDicCollection = new ObservableCollection<CountClass>();
+        public ObservableCollection<CountClass> CountDicCollection
+        {
+            get { return _CountDicCollection; }
+            set { _CountDicCollection = value; }
+        }
+
+
         DataView _ResultView = new DataView();
         public DataView ResultView
         {
@@ -72,54 +99,19 @@ namespace DXApplication4.ViewModels
         {
             try
             {
-                //논리그룹에 속한 조직들
-                var list = DoorControlViewModel.SelectedGroupInListCollection;
+                //논리그룹,거기에 속한 조직들
+                
                 //논리그룹
                 var groupList = DoorControlViewModel.SelectedGroupCollection;
                 //출입문
                 var doorList = DoorControlViewModel.DoorSelected;
-
+                
                 var builder = new EntityConnectionStringBuilder(ConfigurationManager.ConnectionStrings["ADTSC20"].ConnectionString);
                 var regularConnectionString = builder.ProviderConnectionString;
                 SqlConnection connection = new SqlConnection(regularConnectionString);
-                string query = "Select Eventtime, DoorName, AccessUserCard_SID, USERNAME " +
-                               "from ADTSC.CM_AccessEventLog " +
-                               "where Door_DID = @DID" +
-                               " AND " +
-                               "EventTime BETWEEN @STARTDATE AND @ENDDATE";
 
-                SqlCommand cmd = new SqlCommand(query, connection);
-                cmd.Parameters.Add("@DID", SqlDbType.NVarChar);
-                cmd.Parameters.Add("@STARTDATE", SqlDbType.DateTime);
-                cmd.Parameters.Add("@ENDDATE", SqlDbType.DateTime);
+                UserListSearch(groupList, doorList, connection);
 
-                //DataTable tT = new DataTable();
-                SqlDataReader reader;
-        
-                var state = connection.State.ToString();
-                if(state.Equals("Closed"))
-                {
-                    connection.Open();
-                    foreach (var a in doorList)
-                    {
-                        cmd.Parameters["@DID"].Value = a.DID;
-                        cmd.Parameters["@STARTDATE"].Value = StartDate;
-                        cmd.Parameters["@ENDDATE"].Value = EndDate;
-                        reader = cmd.ExecuteReader();
-
-                        if (reader.HasRows)
-                        {
-                            DataTable.Load(reader);
-                            ResultCollection.Add(DataTable);
-                            reader.Close();
-                        }
-                        else
-                        {
-                            reader.Close();
-                        }
-                    }
-                    connection.Close();
-                }
             }
             catch (Exception e)
             {
@@ -141,7 +133,119 @@ namespace DXApplication4.ViewModels
         }
 
 
+        public void UserListSearch(ObservableCollection<DXApplication4.Models.Group> groupList, ObservableCollection<OC_OutputportInfo> doorList, SqlConnection connection)
+        {
+            try
+            {
+                //dic에서 논리그룹에 해당하는 것들을 가져옴
+                foreach(var group in groupList)
+                {
+                    ObservableCollection<UC_Organization> values = new ObservableCollection<UC_Organization>();
+                    bool result = DoorControlViewModel.Dic.TryGetValue(group.GroupName, out values);
+                    if (result)
+                    {
+                        foreach(var group2 in values)
+                        {
+                            //하고나면 groupdic에 조직명/서치값 매핑되서 저장
+                            UserListSearchByOrqan(group.GroupName, group2.OrganizationName, doorList, connection);
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("논리그룹 및 속한 조직이 존재하지 않습니다");
+                    }
+                }
+                //dic에 저장된 조직명과 논리그룹명 매칭해서 groupdatable에 매핑
+                //tuple (key), user - (value)
+                foreach (var group in groupList)
+                {
+                    if (GroupDic != null)
+                    {
+                        int count = 0;
+                        foreach (var tuple in GroupDic)
+                        {
+                            if (tuple.Key.Item1 == group.GroupName)
+                            {
+                                count += tuple.Value.Rows.Count;
+                            }
+                        }
+                        CountClass abc = new CountClass(group.GroupName, count);
+                        CountDicCollection.Add(abc);
+                        count = 0;
+                    }
+                }
 
+
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+        }
+        public void UserListSearchByOrqan(string groupName, string organ, ObservableCollection<OC_OutputportInfo> doorList, SqlConnection connection)
+        {
+            try
+            {
+                string query = "Select Eventtime, DoorName, AccessUserCard_SID, USERNAME, MemberID, Organization " +
+                            "from ADTSC.CM_AccessEventLog " +
+                            "where Door_DID = @DID" +
+                            " AND " +
+                            "Organization = @OrganizationName" +
+                            " AND " +
+                            "EventTime BETWEEN @STARTDATE AND @ENDDATE";
+
+                SqlCommand cmd = new SqlCommand(query, connection);
+                cmd.Parameters.Add("@DID", SqlDbType.NVarChar);
+                cmd.Parameters.Add("@STARTDATE", SqlDbType.DateTime);
+                cmd.Parameters.Add("@ENDDATE", SqlDbType.DateTime);
+                cmd.Parameters.Add("@OrganizationName", SqlDbType.NVarChar);
+
+                SqlDataReader reader;
+                var state = connection.State.ToString();
+                if (state.Equals("Closed"))
+                {
+                    connection.Open();
+                    foreach (var a in doorList)
+                    {
+                        cmd.Parameters["@DID"].Value = a.DID;
+                        cmd.Parameters["@STARTDATE"].Value = StartDate;
+                        cmd.Parameters["@ENDDATE"].Value = EndDate;
+                        cmd.Parameters["@OrganizationName"].Value = organ;
+                        reader = cmd.ExecuteReader();
+
+                        if (reader.HasRows)
+                        {
+                            UserDataTable.Load(reader);
+                            //그룹명,날짜로 조회한 데이터테이블을 해당 그룹명으로 dic에저장
+                            //나중에 dic에서 그룹명이랑 논리그룹에 속한 그룹명이랑 매치
+                            var dicTuple = new Tuple<string, string>(groupName, organ);
+                            GroupDic.Add(dicTuple, UserDataTable);
+                            reader.Close();
+                        }
+                        else
+                        {
+                            reader.Close();
+                        }
+                    }
+                    connection.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+          
+        }
+    }
+    public class Tuple<T1, T2>
+    {
+        public T1 Item1 { get; private set; }
+        public T2 Item2 { get; private set; }
+        public Tuple(T1 a, T2 b)
+        {
+            Item1 = a;
+            Item2 = b;
+        }
     }
 
 }

@@ -61,7 +61,7 @@ namespace DXApplication4.ViewModels
         /// <summary>
         /// 저장된 출입문 목록
         /// </summary>
-        private ObservableCollection<OC_OutputportInfo> _SelectedDoorCollection = new ObservableCollection<OC_OutputportInfo>();
+        public ObservableCollection<OC_OutputportInfo> _SelectedDoorCollection = new ObservableCollection<OC_OutputportInfo>();
         public ObservableCollection<OC_OutputportInfo> SelectedDoorCollection
         {
             get { return _SelectedDoorCollection; }
@@ -81,8 +81,8 @@ namespace DXApplication4.ViewModels
         /// <summary>
         /// 논리그룹에 추가하기 위해 선택된 조직 목록
         /// </summary>
-        public static  ObservableCollection<UC_Organization> _SelectedGroupInListCollection = new ObservableCollection<UC_Organization>();
-        public static ObservableCollection<UC_Organization> SelectedGroupInListCollection
+        public ObservableCollection<UC_Organization> _SelectedGroupInListCollection = new ObservableCollection<UC_Organization>();
+        public ObservableCollection<UC_Organization> SelectedGroupInListCollection
         {
             get { return _SelectedGroupInListCollection; }
             set { _SelectedGroupInListCollection = value; }
@@ -91,7 +91,7 @@ namespace DXApplication4.ViewModels
         /// <summary>
         ///  논리그룹에 소속된 조직 목록 
         /// </summary>
-        private ObservableCollection<UC_Organization> _ShowDicVaules = new ObservableCollection<UC_Organization>();
+        public ObservableCollection<UC_Organization> _ShowDicVaules = new ObservableCollection<UC_Organization>();
         public ObservableCollection<UC_Organization> ShowDicValues
         {
             get { return _ShowDicVaules; }
@@ -105,7 +105,12 @@ namespace DXApplication4.ViewModels
             set { _DeleteDic = value; }
         }
 
-        public Dictionary<string, ObservableCollection<UC_Organization>> Dic { get; set; }
+        public static Dictionary<string, ObservableCollection<UC_Organization>> _Dic = new Dictionary<string, ObservableCollection<UC_Organization>>();
+        public static Dictionary<string, ObservableCollection<UC_Organization>> Dic
+        {
+            get { return _Dic; }
+            set { _Dic = value; }
+        }
 
         public DelegateCommand AddDoorCommand { get; set; }
         public DelegateCommand DeleteDoorCommand { get; set; }
@@ -122,8 +127,6 @@ namespace DXApplication4.ViewModels
             DeleteGroupCommand = new DelegateCommand(DeleteGroupCommandAction);
             AddGroupListCommand = new DelegateCommand(AddGroupListCommandAction);
             DeleteGroupListCommand = new DelegateCommand(DeleteGroupListCommandAction);
-            //db에서불러와서dic에넣어야겟징
-            Dic = new Dictionary<string, ObservableCollection<UC_Organization>>();
         }
         /// <summary>
         /// 출입문 추가
