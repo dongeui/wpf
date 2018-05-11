@@ -186,13 +186,32 @@ namespace DXApplication4.ViewModels
         {
             try
             {
-                string query = "Select Eventtime, DoorName, AccessUserCard_SID, USERNAME, MemberID, Organization " +
-                            "from ADTSC.CM_AccessEventLog " +
-                            "where Door_DID = @DID" +
-                            " AND " +
-                            "Organization = @OrganizationName" +
-                            " AND " +
-                            "EventTime BETWEEN @STARTDATE AND @ENDDATE";
+                //string query = "Select Eventtime, DoorName, AccessUserCard_SID, USERNAME, MemberID, Organization " +
+                //            "from ADTSC.CM_AccessEventLog " +
+                //            "where Door_DID = @DID" +
+                //            " AND " +
+                //            "Organization = @OrganizationName" +
+                //            " AND " +
+                //            "EventTime BETWEEN @STARTDATE AND @ENDDATE";
+
+                string query = "Select EventTime, Organization, USERNAME, MemberID, DoorName, AccessUserCard_SID " +
+            "from ADTSC.CM_AccessEventLog " +
+            "where Door_DID = @DID" +
+            " AND " +
+            "Organization = @OrganizationName" +
+            " AND " +
+            "EventTime=(Select MAX(EventTime) From ADTSC.CM_AccessEventLog where EventTime BETWEEN @STARTDATE AND @ENDDATE)";
+
+                //    string query = "Select EventTime, DoorName, AccessUserCard_SID, USERNAME, MemberID, Organization " +
+                //"from ADTSC.CM_AccessEventLog " +
+                //"where EventTime=" +
+                //"(Select MAX(EventTime) From ADTSC.CM_AccessEventLog where EventTime BETWEEN @STARTDATE" +
+                //" AND @ENDDATE AND Door_DID = @DID " +
+                //"AND Organization = @OrganizationName)";
+
+
+
+
 
                 SqlCommand cmd = new SqlCommand(query, connection);
                 cmd.Parameters.Add("@DID", SqlDbType.NVarChar);
@@ -218,7 +237,6 @@ namespace DXApplication4.ViewModels
                             if (UserDataTable.Columns.Contains("GroupName"))
                             {
                                 UserDataTable.Columns["GroupName"].DefaultValue = groupName;
-                                //UserDataTable.Columns.Remove("GroupName");
                             }else if (!UserDataTable.Columns.Contains("GroupName"))
                             {
                                 UserDataTable.Columns.Add("GroupName", typeof(string));
